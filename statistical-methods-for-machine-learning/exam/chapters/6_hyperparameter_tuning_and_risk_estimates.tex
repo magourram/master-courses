@@ -25,7 +25,7 @@
             Split $S$ into folds $S_1, \dots, S_K$\\
             \For{$i = 1, \dots, K$}{
                 Compute training part of $i$-th fold: $S_{-i} \equiv S\ \backslash\  S_i$\\
-                Run CV on $S_{-i}$ for each $\theta \in \Theta_0$ and find $\theta_i = \underset{\theta \in \Theta_0}{\textmd{argmin}}\ell_{S_{-i}}^{CV}(A_{\theta})$\\
+                Run CV on $S_{-i}$ for each $\theta \in \Theta_0$ and find $\theta_i = \underset{\theta \in \Theta_0}{\textmd{argmin}} \ell_{S_{-i}}^{CV}(A_{\theta})$\\
                 Re-train $A_{\theta_i}$ on $S_{-i}: h_i = A_{\theta_i}(S_{-i})$\\            
                 Compute error of $i$-th fold: $\epsilon_i = \ell_{S_i}(h_i)$\\
             }
