@@ -1,0 +1,213 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+        
+<head>
+
+<style type="text/css" media="all">@import "../../adapt-lab.css";</style>
+<link rel="shortcut icon" href="../../logo/logo.ico" type="image/x-icon"/>
+<link rel="icon" href="../../logo/logo.ico" type="image/x-icon"/>
+
+<title>Esame di Programmazione Avanzata del 27-09-2011</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"/> 
+<meta name="keywords" content="['Python', 'Walter Cazzola']"/>
+
+<script type="text/javascript">
+var showMode = 'block';
+	if (document.all) showMode = '';
+
+	function toggleId(id, y_scroll){
+	  if (document.all) {
+		var obj = document.all[id];
+	  } else if (document.getElementById) {
+		 var obj = document.getElementById(id);
+	  } else return false;
+	  if (obj.style.display == 'none') {
+	     obj.style.display = showMode;
+	  	 if (y_scroll) scroll(0,y_scroll);
+	  } else obj.style.display = 'none';
+	  return false;
+	}
+</script>
+
+</head>
+<body style="background-image: url(../../backgrounds/rosetta.jpg); background-repeat: repeat-x;">
+
+<!-- INIZIO CONTAINER -->
+<div id="contentmain">
+      
+   <!-- INIZIO CONTENUTO PRINCIPALE -->
+
+   <div class="document">
+<div class="header"><h1 class="title">Exam of Advance in Programming</h1><div class="subtitle">27 September 2011</div></div><br/><br/><!-- Exam of Advance in Programming -->
+<!-- ============================== -->
+<!-- 27 Semptember 2011 -->
+<!-- - - - - - - - - - - - - - - - - - - -->
+<p><strong>Disclaimer.</strong> Note that to have a running solution for an exercise is not enough: you need a well-cooked solution that proves your ability to use what explained during the classes. All the exercises have the same value: 12; the submission with only one exercise will not be evaluated at all.</p>
+<div class="midline">Exercise 1: Lossless Image Compacting.</div><!-- Exercise 1: Lossless Image Compacting -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<p>Images can be viewed as a rectangular matrices of pixels where each pixel contains the information about the color. In general, the level of details implies the size of the picture so more and more details means larger size. As a good approximation a n×n black and white picture needs n×n bits (just 0 for white, 1 for black, gray is yielded by close black and white pixels) of information to be represented. Of course this could be a very large value and, above all, useless: formats as JPG reduce such a size by compacting the picture and losing some details.</p>
+<p>A <strong>quadtree</strong> is a tree data structure in which each internal node has up to four children. Quadtrees are most often used to partition a two dimensional space by recursively subdividing it into four quadrants or regions.</p>
+<p>The quadtree represents a partition of space in two dimensions by decomposing the region into four equal quadrants, subquadrants, and so on with each leaf node containing data corresponding to a specific subregion. Each node in the tree either has exactly four children, or has no children (a leaf node).  The root node represents the entire image region. If the pixels in any region are not entirely blacks or whites, it is subdivided. Each leaf node represents a block of pixels that are all blacks or all whites. In the following picture you have an example of the quadtree representation.</p>
+<img alt="esame-2011-09-27.p1.jpg" class="align-center" src="esame-2011-09-27.p1.jpg" style="width: 90%;" />
+<p>The goal of the exercise is to implement a class <tt class="docutils literal">quadtree</tt> that converts a squared black and white picture from its vectorial representation (a list of zeros and ones respectively representing a white and black pixel) to a quadtree as described above. Moreover the class have to implement a method <tt class="docutils literal">count</tt> which returns the saved space with respect to the vectorial representation. Note that, in the vectorial representation the size is the length of the vector in the quadtree representation only the leaves should be counted, the saved space is the difference of these two quantities.</p>
+<p>The following is an example of use:</p>
+<embed src="esame 2011-09-27.p2.pdf" width="100%" height="346.3322299451585622688097229px">
+
+<BR>
+
+<embed src="esame 2011-09-27.p3.pdf" width="100%" height="669.8098002422300154380638466px">
+
+<BR><div class="midline">Exercise 2: Euler's Accelerator.</div><!-- Exercise 2: Euler's Accelerator. -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<p>As you probably knows several constants and functions can be modeled by a series and their value can be approximate as:</p>
+<center><img src="http://www.codecogs.com/png.latex?\displaystyle\sum_{i=0}^\infty}S_i" /></center><p>that means that the precision of the approximation increases according to the number of terms of the series used in the approximation.</p>
+<p>A couple of these series are:</p>
+<center><img src="http://www.codecogs.com/png.latex?\displaystyle\pi=4-\frac{4}{3}+\frac{4}{5}-\frac{4}{7}+\cdots" /></center><p>and</p>
+<center><img src="http://www.codecogs.com/png.latex?\displaystyle e=1+\frac{1}{1!}+\frac{1}{2!}+\frac{1}{3!}+\frac{1}{4!}+\cdots" /></center><p>Unfortunately the convergence of the series could be very slow. Leonhard Euler has discovered that the terms of a series can be converted through an accelerator operator to the terms of a new series which converges to the original value much faster. Such accelerator is:</p>
+<center><img src="http://www.codecogs.com/png.latex?\displaystyle S_{n+1} - \frac{(S_{n+1}-S_n)^2}{S_{n-1}-2S_n+S_{n+1}}" /></center><p>where S is the series to speed up and the index represents the position of the term in the sequence.</p>
+<p>Let's write two generator functions (<tt class="docutils literal">pi_series</tt> and <tt class="docutils literal">e_series</tt>) that calculates respectively the value for π and ε and at each call returns a more accurate approximation. Then write another generator function (<tt class="docutils literal">euler_accelerator(g)</tt>) that accelerates a generator object according to the Euler's formula. <strong>Note</strong> that the <tt class="docutils literal">pi_series</tt> and <tt class="docutils literal">e_series</tt> generator functions must be callable also in their non accelerate version.</p>
+<p>The following is an example of the expected results:</p>
+<embed src="esame 2011-09-27.p4.pdf" width="100%" height="238.5063731794680778790583484px">
+
+<BR>
+
+<embed src="esame 2011-09-27.p5.pdf" width="100%" height="176.8910456887039757114042547px">
+
+<BR><div class="midline">Exercise 3: Calculator.</div><!-- Exercise 3: Calculator -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - -->
+<p>Let us consider a small language for expression with the binary operators <tt class="docutils literal">+</tt>, <tt class="docutils literal">-</tt>, <tt class="docutils literal">*</tt>, <tt class="docutils literal">/</tt> (with the obvious meaning) and the operands <tt class="docutils literal">0</tt>, <tt class="docutils literal">1</tt>, ..., <tt class="docutils literal">9</tt> (note that an expression can only have figures from 0 to 9 but the intermediate and final results can be greater than this). To simplify the expressions are written in polish notation, i.e., all the operators come before of their operands (e.g., <tt class="docutils literal"><span class="pre">(3+4)*5</span></tt> is equal to <tt class="docutils literal">* + 3 4 5</tt>).</p>
+<p>An expression can be mathematical evaluated or converted in a stack-based assembler with the following statements: <tt class="docutils literal">store n</tt>, <tt class="docutils literal">add</tt>, <tt class="docutils literal">sub</tt>, <tt class="docutils literal">mul</tt>, <tt class="docutils literal">div</tt> where <tt class="docutils literal">store n</tt> will push on the stack the value of n and the other statements pop the two elements on the top and push the result on the top. Since the all the statements works on the stack, it should be fairly evident that each intermediate value passes through the stack and the operands must be moved on the stack before being usable; e.g., <tt class="docutils literal">+34</tt> corresponds to the assembly code</p>
+<ol class="arabic simple">
+<li><tt class="docutils literal">store 3</tt></li>
+<li><tt class="docutils literal">store 4</tt></li>
+<li><tt class="docutils literal">add</tt></li>
+</ol>
+<p>Write a <tt class="docutils literal">calculator</tt> class with the methods:</p>
+<ul class="simple">
+<li><tt class="docutils literal">__init__</tt> that takes a string representing the expression in polish notion</li>
+<li><tt class="docutils literal">eval</tt> with no args that mathematical evaluates the expression used in the constructor and returns the result</li>
+<li><tt class="docutils literal">code</tt> with no args that generates the assembler corresponding to the expression and returns it as a string with a statement per row.</li>
+</ul>
+<p>Of course the use of <tt class="docutils literal">eval</tt> is <strong>forbidden</strong> and all the passed expressions are correct so no checks on inputs are necessary. The following is an example of usage</p>
+<embed src="esame 2011-09-27.p6.pdf" width="100%" height="130.6792279562486676177825880px">
+
+<BR>
+
+<embed src="esame 2011-09-27.p7.pdf" width="100%" height="192.2945554470127697854366817px">
+
+<BR><p>Note that, closures, recursion and dictionaries can help a lot.</p>
+</div>
+
+  
+   <!-- COPYRIGHT -->
+    <div id="footer">
+        Last Modified: Tue, 04 Oct 2011 11:44:39
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          ADAPT Lab.&nbsp;
+          <img src="../../logo/logo (svg) 02.png" width="15px" height="15px"></img>
+
+    </div>
+    <!-- FINE COPYRIGHT -->
+</div>
+<!-- FINE CONTENUTO PRINCIPALE -->
+
+
+<!-- INIZIO COLONNA -->
+<div id="colonna">
+
+    <div class="boxSidebar">
+       <p align="center">
+         <center>
+            <img class="nospacetop" src="../../imgs/io-camogli.jpg" hspace="0px" align="middle"></img>
+         </center>
+       </p>
+
+    <h2 class="sectiontitle"><a href="index.html#" onclick="return toggleId('personal');">Walter Cazzola</a></h2>
+    <div id="personal" style="display:block">
+            <a class="on" href="../../index.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Home Page</a><br/>
+            <a class="on" href="../../adapt-lab.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ADAPT Lab.</a><br/>
+            <a class="on" href="../../cv.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Curriculum Vitae</a><br/>
+            <a class="off" href="../../topics.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Research Topic</a><br/>
+    </div>
+
+    <h2 class="sectiontitle"><a href="adapt-lab.html#" onclick="return toggleId('teaching');">Didactics</a></h2>
+    <div id="teaching" style="display:none">
+            <a class="on" href="../../pa.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PA 2009-10</a><br/>
+            <a class="on" href="../../tsp.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TSP 2009-10</a><br/>
+            <a class="on" href="../../phd-apt.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PhD: ADT Curricula</a><br/>
+            <hr>
+            <a class="on" href="../../fap08.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FAP 2008-09</a><br/>
+            <a class="on" href="../../tsp08.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TSP 2008-09</a><br/>
+            <hr>
+            <a class="off" href="../../thesis.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Thesis Proposals</a><br/>
+    </div>
+
+    <h2 class="sectiontitle"><a href="adapt-lab.html#" onclick="return toggleId('publications');">Publications</a></h2>
+    <div id="publications" style="display:none">
+            <a class="on" href="../../cazzolawbib-by-year.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sorted by Year</a><br/>
+            <a class="on" href="../../cazzolawbib-by-topic.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sorted by Topic</a><br/>
+            <a class="on" href="../../cazzolawbib-by-kind.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sorted by Kind</a>
+    </div>
+
+    <h2 class="sectiontitle"><a href="adapt-lab.html#" onclick="return toggleId('funded_projects');">Funded Projects</a></h2>
+    <div id="funded_projects" style="display:none">
+            <a class="on" href="http://wwwiti.cs.uni-magdeburg.de/iti_db/forschung/ramses/ramses1.htm" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RAMSES</a><br/>
+            <a class="on" href="http://bart.disi.unige.it/EOS2/" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EOS-DUE</a><br/>
+            <a class="on" href="http://wwwiti.cs.uni-magdeburg.de/iti_db/forschung/ramses/" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RAMSES II</a>
+    </div>
+
+    <h2 class="sectiontitle"><a href="adapt-lab.html#" onclick="return toggleId('research');">Research Projects</a></h2>
+    <div id="research" style="display:none">
+            <a class="on" href="../../atjava.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Java</a><br/>
+            <a class="on" href="../../neverlang.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Neverlang</a><br/>
+            <a class="off" href="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Blueprint</a><br/>
+            <a class="off" href="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AOP->HiddenMetrics</a><br/>
+            <a class="off" href="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mChaRM</a><br/>
+            <a class="off" href="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RAMSE Library</a><br/>
+            <a class="off" href="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reflective Petri Nets</a><br/>
+            <a class="off" href="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Smart Reflection</a><br/>
+            <a class="off" href="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SNA Servants</a><br/>
+            <a class="off" href="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ReverseR</a><br/>
+    </div>
+
+    <h2 class="sectiontitle"><a href="adapt-lab.html#" onclick="return toggleId('events');">Related Events</a></h2>
+    <div id="events" style="display:none">
+            <a class="on" target="_blank" href="http://www-users.cs.york.ac.uk/~manuel/Events/RAM-SE10/">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RAM-SE'10</a><br/>
+            <a class="on" target="_blank" href="http://www-users.cs.york.ac.uk/~manuel/Events/RAM-SE09/">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RAM-SE'09</a><br/>
+            <a class="on" target="_blank" href="http://2009.ecoop.org">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ECOOP'09</a><br/>
+            <a class="on" target="_blank" href="../../RAM-SE08.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RAM-SE'08</a><br/>
+            <a class="on" target="_blank" href="http://www.aspect-modeling.org">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AOM'08</a><br/>
+            <a class="on" target="_blank" href="../../RAM-SE07.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RAM-SE'07</a><br/>
+    </div>
+    <br/><br/><br/><br/><br/><br/>
+<!-- ADDFREESTATS.COM AUTOCODE V4.0 -->
+<center><script type="text/javascript">
+<!--
+var AFS_Account="00210510";
+var AFS_Tracker="auto";
+var AFS_Server="www2";
+var AFS_Page="DetectName";
+var AFS_Url="DetectUrl";
+// -->
+</script>
+<script type="text/javascript" src="http://www2.addfreestats.com/cgi-bin/afstrack.cgi?usr=00210510">
+</script>
+<noscript>
+<a href="http://www.addfreestats.com" >
+<img src="http://www2.addfreestats.com/cgi-bin/connect.cgi?usr=00210510Pauto" border=0 alt="AddFreeStats.com Free Web Stats!">Web Stats</a>
+</noscript>
+<!-- ENDADDFREESTATS.COM AUTOCODE V4.0  -->
+    <br/><a href="http://validator.w3.org/check?uri=referer"><img
+        src="http://www.w3.org/Icons/valid-xhtml10-blue"
+        alt="Valid XHTML 1.0 Transitional" height="31" width="88" /></a>
+</center>
+
+</div>
+<!-- FINE COLONNA -->
+  
+</div>
+
+</body>
+</html>
+

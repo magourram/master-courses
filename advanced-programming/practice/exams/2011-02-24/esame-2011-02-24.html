@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+        
+<head>
+
+<style type="text/css" media="all">@import "../../adapt-lab.css";</style>
+<link rel="shortcut icon" href="../../logo/logo.ico" type="image/x-icon"/>
+<link rel="icon" href="../../logo/logo.ico" type="image/x-icon"/>
+
+<title>Esame di Programmazione Avanzata del 24-02-2011</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"/> 
+<meta name="keywords" content="['Python', 'Walter Cazzola']"/>
+
+<script type="text/javascript">
+var showMode = 'block';
+	if (document.all) showMode = '';
+
+	function toggleId(id, y_scroll){
+	  if (document.all) {
+		var obj = document.all[id];
+	  } else if (document.getElementById) {
+		 var obj = document.getElementById(id);
+	  } else return false;
+	  if (obj.style.display == 'none') {
+	     obj.style.display = showMode;
+	  	 if (y_scroll) scroll(0,y_scroll);
+	  } else obj.style.display = 'none';
+	  return false;
+	}
+</script>
+
+</head>
+<body style="background-image: url(../../backgrounds/rosetta.jpg); background-repeat: repeat-x;">
+
+<!-- INIZIO CONTAINER -->
+<div id="contentmain">
+      
+   <!-- INIZIO CONTENUTO PRINCIPALE -->
+
+   <div class="document">
+<div class="header"><h1 class="title">Exam of Advance in Programming</h1><div class="subtitle">24 February 2011</div></div><br/><br/><!-- Exam of Advance in Programming -->
+<!-- ============================== -->
+<!-- 24 February 2011 -->
+<!-- - - - - - - - - - - - - - - - - -->
+<p><strong>Disclaimer.</strong> Note that to have a running solution for an exercise is not enough: you need a well-cooked solution that proves your ability to use what explained during the class. The worth of the first exercise is 16; the last two exercises are simpler and their worth is 8 if you commit only the first exercise or the last two exercises your exam will not be evaluated.</p>
+<div class="midline">Exercise 1: Symbolic Calculus.</div><!-- Exercise 1: Symbolic Calculus. -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<p>In calculus the <strong>derivative</strong> is a measure of how a function changes as its input changes. Loosely speaking, a derivative can be thought of as how much one quantity is changing in response to changes in some other quantity. The derivative of a function at a chosen input value describes the best linear approximation of the function near that input value.</p>
+<p>Let φ be a function that has a derivative at every point a in the domain of φ. Because every point a has a derivative, there is a function that sends the point a to the derivative of φ at a. This function is written φ′(x) and is called the derivative function or the derivative of φ. The derivative of φ collects all the derivatives of φ at all the points in the domain of φ.</p>
+<p>The exercise consists of writing a python function/method (<tt class="docutils literal">derivative</tt>) that given as a parameter a function φ represented by a string returns its derivative φ' as a string as well. The input has some simplifications:</p>
+<ul class="simple">
+<li>x is always the only variable</li>
+<li>all the constants goes from 1 to 9</li>
+<li>polynomials, sines (<tt class="docutils literal">S</tt>), cosines (<tt class="docutils literal">C</tt>), tangents (<tt class="docutils literal">T</tt>), logarithms (<tt class="docutils literal">L</tt>) and exponentials (<tt class="docutils literal">e</tt>) are the only functions available in the inputs (the letters indicate how they are represented in the input and should be represented in the output)</li>
+<li><tt class="docutils literal">^</tt>, <tt class="docutils literal">*</tt>, <tt class="docutils literal">/</tt>, <tt class="docutils literal">+</tt>, <tt class="docutils literal">-</tt> represent the power to an int value, multiplication, division, sum and subtraction symbols respectively (division is not used in the inputs) and they are always explicit</li>
+<li>unary minus is represented by <tt class="docutils literal">~</tt></li>
+<li>no parenthesis, the strings are prefixed</li>
+</ul>
+<p>These are examples of correct inputs: <tt class="docutils literal">&quot;^S^x22&quot;</tt> that is equivalent to sin²x²,  <tt class="docutils literal"><span class="pre">&quot;+**3^Sx2^Cx2L^x3&quot;</span></tt> that is equivalent to 3sin²x·cos²x+log(x³) and <tt class="docutils literal"><span class="pre">&quot;+eSx+*CxTx^Lx3&quot;</span></tt> that is equivalent to e^sinx+cosx·tanx+e^log³x.</p>
+<p><strong>Some mathematical insides.</strong>
+Some of the most basic differentiation rules are the following.</p>
+<ul class="simple">
+<li><strong>constant rule</strong>: if φ is constant, then φ'= 0</li>
+<li><strong>sum rule</strong>: (aφ+bγ)' = aφ'+bγ' for all functions φ and γ and all numbers a and b</li>
+<li><strong>product rule</strong>: (φγ)' = φ'γ+φγ' for all functions φ and γ</li>
+<li><strong>quotient rule</strong>: (φ/γ)' = (φ'γ-φγ')/γ² for all functions φ and γ where γ ≠ 0</li>
+<li><strong>chain rule</strong>: if φ(x) = ζ(ξ(x)) then φ'(x) = ζ'(ξ(x))·ξ'(x) for all functions ζ and ξ</li>
+</ul>
+<p>No simplification is required or necessary.</p>
+<p><strong>Note</strong> that, φ'(sinx) = cosx, φ'(cosx) = -sinx, φ'(tanx) = 1/cos²x, φ'(e^x) = e^x, φ'(logx) = 1/x, and φ'(xⁿ) = nx^(n-1).</p>
+<div class="midline">Exercise 2: Joseph's Problem.</div><!-- Exercise 2: Joseph's Problem. -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<p>Flavius Josephus was a roman historian of Jewish origin. During the Jewish-Roman wars of the first century AD, he was in a cave with fellow soldiers, 40 men in all, surrounded by enemy Roman troops. They decided to commit suicide by standing in a ring and counting off each third man. Each man so designated was to commit suicide... Josephus, not wanting to die, managed to place himself in the position of the last survivor.</p>
+<p>In the general version of the problem, there are n Hebrews numbered from 1 to n and each k-th Hebrew will be eliminated. The count starts from the first Hebrew. What is the number of the last survivor?</p>
+<p>The exercise consists of implementing a solution for the general version of the «Joseph's Problem». The following are a possible main for the solution and a trace of its execution.</p>
+<embed src="esame 2011-02-24.p3.pdf" width="100%" height="164.9778154456358371788161515px">
+
+<BR><embed src="esame 2011-02-24.p4.pdf" width="100%" height="171.8853990098582013224299290px">
+
+<BR><div class="midline">Exercise 3: Skin an Object (Traits for Poor).</div><!-- Exercise 3: Skin an Object (Traits for Poor). -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<p>Often objects during their life cycle evolves sometimes changing their interface. <tt class="docutils literal">Stack</tt> clearly shows this point: initially the stack is empty and <tt class="docutils literal">pop()</tt> operation is unacceptable and similarly when it is full it cannot accept <tt class="docutils literal">push()</tt> operations. Another example is <tt class="docutils literal">Person</tt> that grows to a <tt class="docutils literal">Student</tt> (with the method <tt class="docutils literal">average()</tt>) and then to a <tt class="docutils literal">Worker</tt> (with the method <tt class="docutils literal">salary()</tt>).</p>
+<p>Normally an object begins with a type and cannot change it without a complete re-instantiation. Python being a dynamic language is a little bit more flexible and permits to have instances of the same class that accept different messages, such as empty and full stacks.</p>
+<p>The exercise consists of writing a metaclass <tt class="docutils literal">Skin</tt> that provides an object with the method <tt class="docutils literal">become()</tt> that receives two sets of methods to be added to and to be removed from the object respectively. The following shows the expected behavior for a stack whose methods <tt class="docutils literal">pop()</tt> and <tt class="docutils literal">push()</tt> are added/removed when acceptable/unacceptable.</p>
+<embed src="esame 2011-02-24.p1.pdf" width="100%" height="243.9125726880285037910618334px">
+
+<BR><embed src="esame 2011-02-24.p2.pdf" width="100%" height="259.3704532467719552659505505px">
+
+<BR><p><strong>Note</strong> that your program must be general and not tailored on the examples.</p>
+</div>
+
+  
+   <!-- COPYRIGHT -->
+    <div id="footer">
+        Last Modified: Wed, 23 Feb 2011 13:10:13
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          ADAPT Lab.&nbsp;
+          <img src="../../logo/logo (svg) 02.png" width="15px" height="15px"></img>
+
+    </div>
+    <!-- FINE COPYRIGHT -->
+</div>
+<!-- FINE CONTENUTO PRINCIPALE -->
+
+
+<!-- INIZIO COLONNA -->
+<div id="colonna">
+
+    <div class="boxSidebar">
+       <p align="center">
+         <center>
+            <img class="nospacetop" src="../../imgs/io-camogli.jpg" hspace="0px" align="middle"></img>
+         </center>
+       </p>
+
+    <h2 class="sectiontitle"><a href="index.html#" onclick="return toggleId('personal');">Walter Cazzola</a></h2>
+    <div id="personal" style="display:block">
+            <a class="on" href="../../index.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Home Page</a><br/>
+            <a class="on" href="../../adapt-lab.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ADAPT Lab.</a><br/>
+            <a class="on" href="../../cv.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Curriculum Vitae</a><br/>
+            <a class="off" href="../../topics.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Research Topic</a><br/>
+    </div>
+
+    <h2 class="sectiontitle"><a href="adapt-lab.html#" onclick="return toggleId('teaching');">Didactics</a></h2>
+    <div id="teaching" style="display:none">
+            <a class="on" href="../../pa.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PA 2009-10</a><br/>
+            <a class="on" href="../../tsp.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TSP 2009-10</a><br/>
+            <a class="on" href="../../phd-apt.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PhD: ADT Curricula</a><br/>
+            <hr>
+            <a class="on" href="../../fap08.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FAP 2008-09</a><br/>
+            <a class="on" href="../../tsp08.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TSP 2008-09</a><br/>
+            <hr>
+            <a class="off" href="../../thesis.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Thesis Proposals</a><br/>
+    </div>
+
+    <h2 class="sectiontitle"><a href="adapt-lab.html#" onclick="return toggleId('publications');">Publications</a></h2>
+    <div id="publications" style="display:none">
+            <a class="on" href="../../cazzolawbib-by-year.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sorted by Year</a><br/>
+            <a class="on" href="../../cazzolawbib-by-topic.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sorted by Topic</a><br/>
+            <a class="on" href="../../cazzolawbib-by-kind.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sorted by Kind</a>
+    </div>
+
+    <h2 class="sectiontitle"><a href="adapt-lab.html#" onclick="return toggleId('funded_projects');">Funded Projects</a></h2>
+    <div id="funded_projects" style="display:none">
+            <a class="on" href="http://wwwiti.cs.uni-magdeburg.de/iti_db/forschung/ramses/ramses1.htm" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RAMSES</a><br/>
+            <a class="on" href="http://bart.disi.unige.it/EOS2/" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EOS-DUE</a><br/>
+            <a class="on" href="http://wwwiti.cs.uni-magdeburg.de/iti_db/forschung/ramses/" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RAMSES II</a>
+    </div>
+
+    <h2 class="sectiontitle"><a href="adapt-lab.html#" onclick="return toggleId('research');">Research Projects</a></h2>
+    <div id="research" style="display:none">
+            <a class="on" href="../../atjava.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Java</a><br/>
+            <a class="on" href="../../neverlang.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Neverlang</a><br/>
+            <a class="off" href="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Blueprint</a><br/>
+            <a class="off" href="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AOP->HiddenMetrics</a><br/>
+            <a class="off" href="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mChaRM</a><br/>
+            <a class="off" href="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RAMSE Library</a><br/>
+            <a class="off" href="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reflective Petri Nets</a><br/>
+            <a class="off" href="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Smart Reflection</a><br/>
+            <a class="off" href="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SNA Servants</a><br/>
+            <a class="off" href="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ReverseR</a><br/>
+    </div>
+
+    <h2 class="sectiontitle"><a href="adapt-lab.html#" onclick="return toggleId('events');">Related Events</a></h2>
+    <div id="events" style="display:none">
+            <a class="on" target="_blank" href="http://www-users.cs.york.ac.uk/~manuel/Events/RAM-SE10/">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RAM-SE'10</a><br/>
+            <a class="on" target="_blank" href="http://www-users.cs.york.ac.uk/~manuel/Events/RAM-SE09/">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RAM-SE'09</a><br/>
+            <a class="on" target="_blank" href="http://2009.ecoop.org">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ECOOP'09</a><br/>
+            <a class="on" target="_blank" href="../../RAM-SE08.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RAM-SE'08</a><br/>
+            <a class="on" target="_blank" href="http://www.aspect-modeling.org">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AOM'08</a><br/>
+            <a class="on" target="_blank" href="../../RAM-SE07.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RAM-SE'07</a><br/>
+    </div>
+    <br/><br/><br/><br/><br/><br/>
+<!-- ADDFREESTATS.COM AUTOCODE V4.0 -->
+<center><script type="text/javascript">
+<!--
+var AFS_Account="00210510";
+var AFS_Tracker="auto";
+var AFS_Server="www2";
+var AFS_Page="DetectName";
+var AFS_Url="DetectUrl";
+// -->
+</script>
+<script type="text/javascript" src="http://www2.addfreestats.com/cgi-bin/afstrack.cgi?usr=00210510">
+</script>
+<noscript>
+<a href="http://www.addfreestats.com" >
+<img src="http://www2.addfreestats.com/cgi-bin/connect.cgi?usr=00210510Pauto" border=0 alt="AddFreeStats.com Free Web Stats!">Web Stats</a>
+</noscript>
+<!-- ENDADDFREESTATS.COM AUTOCODE V4.0  -->
+    <br/><a href="http://validator.w3.org/check?uri=referer"><img
+        src="http://www.w3.org/Icons/valid-xhtml10-blue"
+        alt="Valid XHTML 1.0 Transitional" height="31" width="88" /></a>
+</center>
+
+</div>
+<!-- FINE COLONNA -->
+  
+</div>
+
+</body>
+</html>
+

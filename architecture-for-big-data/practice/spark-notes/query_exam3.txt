@@ -1,0 +1,13 @@
+path = "<...>"
+RDD = sc.textFile(path)
+        .map(lmabda x: (x.get("user_id")), x.get("date"))
+
+def get_days(a, b):
+    # return days between two dates
+        
+RDD.join(RDD) # ((ID), TS1, TS2)
+   .filter(lambda x: x[1][0] <= x[1][1]) 
+   .map(lambda x: (x[0], x[1][0]), get_days(x[1][1], x[1][0]))
+   .reduceByKey(lambda a, b: min(a[1],b[1]) or max(a[1],b[1]))
+   .map(lambda x: x[0][0], x[1])
+   .reduceByKey(lambda a, b: a+b/2)

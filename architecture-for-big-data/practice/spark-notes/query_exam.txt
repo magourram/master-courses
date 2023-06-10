@@ -1,0 +1,56 @@
+Average Daily Transactions per company 
+(i..e, On average, how much transaction each 
+company does every day) 
+during the week 42 of 2021
+
+def get_week(date):
+   # return True if week is 42^ of 2021
+
+TransRDD.filter(lambda x: get_week(x.get("TS"))) \
+        .map(lambda x: (x.get("CompSym"), 1))
+        .reduceByKey(lambda a,b: (a+b)/2)
+
+# ===========================
+
+Total Amount of Euro spent by each user
+
+def set_row(x):
+   # return \
+   # TransactionID | Timestamp |  UserID |
+   # CompanySymbo | res (Volume * ValuePerUnit_EURO) |
+   # Action
+
+semiJoinTRDD = TransRDD.map(lambda x: ((x.get("CompSym"), x.get("TS")),(x)))
+semiJoinPRDD = PriceRdd.map(lambda x: ((x.get("CompSym"), x.get("TS")),(x)))
+joinTrPrRDD = semiJoinTRDD.join(semiJoinPRDD)
+                          .map(lambda x: set_row(x))
+                          .filter(lambda x: x.get("Action") == "Sell")
+                          .map(lambda x: (x.get("userId"), x))                           
+                          .reduceByKey(lambda a,b: a[1].get("res")+b[1].get("res"))
+
+# ===========================
+
+Value of the portfolio 
+(the value of stocks currently hold) 
+of each user
+
+def calc(a,b):
+   r1 = a[1][0] if a[1][1] == "Buy" else -a[1][0]
+   r2 = b[1][0] if b[1][1] == "Buy" else -b[1][0]
+   return r1+r2
+
+def make_readable(x):
+   # (CompSym, 
+      {(x.get("UserID"), x.get("CompanySymbo")), (x.get("Volume"),x.get("Action")}, 
+      {MAXTimestamp:Datetime | ValuePerUnit_EURO})
+   copy_x["amount"] = x[1][1].get("Volume") * x[2].get("ValuePerUnit_EURO")
+
+
+user_comp_RDD = TransRDD.map(lambda x: (x.get("UserID"), x.get("CompanySymbo")), (x.get("Volume"),x.get("Action"))))
+                        .reduceByKey(lambda a,b: calc(a,b))
+                        .map(lambda x: (x[0][1], x)
+                        .join(PriceRdd.map(lambda x: ((x.get("CompSym"), x))
+                                      .max(key=x[1].get("TS")) 
+                        .map(lambda x: (x[1].get("userid"), make_readable(x)))
+                        .reduceByKey(lambda a,b: a+b)
+                        .persist()

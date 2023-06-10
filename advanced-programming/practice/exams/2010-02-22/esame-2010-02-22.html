@@ -1,0 +1,228 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+        
+<head>
+
+<style type="text/css" media="all">@import "../../adapt-lab.css";</style>
+<link rel="shortcut icon" href="../../logo/logo.ico" type="image/x-icon"/>
+<link rel="icon" href="../../logo/logo.ico" type="image/x-icon"/>
+
+<title>Esame di Programmazione Avanzata del 22-02-2010</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"/> 
+<meta name="keywords" content="['Python', 'Walter Cazzola']"/>
+
+<script type="text/javascript">
+var showMode = 'block';
+	if (document.all) showMode = '';
+
+	function toggleId(id, y_scroll){
+	  if (document.all) {
+		var obj = document.all[id];
+	  } else if (document.getElementById) {
+		 var obj = document.getElementById(id);
+	  } else return false;
+	  if (obj.style.display == 'none') {
+	     obj.style.display = showMode;
+	  	 if (y_scroll) scroll(0,y_scroll);
+	  } else obj.style.display = 'none';
+	  return false;
+	}
+</script>
+
+</head>
+<body style="background-image: url(../../backgrounds/rosetta.jpg); background-repeat: repeat-x;">
+
+<!-- INIZIO CONTAINER -->
+<div id="contentmain">
+      
+   <!-- INIZIO CONTENUTO PRINCIPALE -->
+
+   <div class="document">
+<div class="header"><h1 class="title">Exam of Advance in Programming</h1><div class="subtitle">22 February 2010</div></div><br/><br/><!-- Exam of Advance in Programming -->
+<!-- ============================== -->
+<!-- 22 February 2010 -->
+<!-- - - - - - - - - - - - - - - - - -->
+<p><strong>Disclaimer.</strong> Note that to have a running solution for an exercise is not enough: you need a well-cooked solution that proves your ability to use what explained during the class. The worth of each exercise is 8 if you commit less than 3 exercises your exam will not evaluated.</p>
+<div class="midline">Exercise 1: Calculator.</div><!-- Exercise 1: Calculator -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - -->
+<p>Let us consider a small language for expression with the binary operators <tt class="docutils literal"><span class="pre">+</span></tt>, <tt class="docutils literal"><span class="pre">-</span></tt>, <tt class="docutils literal"><span class="pre">*</span></tt>, <tt class="docutils literal"><span class="pre">/</span></tt> (with the obvious meaning) and the operands <tt class="docutils literal"><span class="pre">0</span></tt>, <tt class="docutils literal"><span class="pre">1</span></tt>, ..., <tt class="docutils literal"><span class="pre">9</span></tt> (note that an expression can only have figures from 0 to 9 but the intermediate and final results can be greater than this). To simplify the expressions are written in polish notation, i.e., all the operators come before of their operands (e.g., <tt class="docutils literal"><span class="pre">(3+4)*5</span></tt> is equal to <tt class="docutils literal"><span class="pre">*</span> <span class="pre">+</span> <span class="pre">3</span> <span class="pre">4</span> <span class="pre">5</span></tt>).</p>
+<p>An expression can be mathematical evaluated or converted in a stack-based assembler with the following statements: <tt class="docutils literal"><span class="pre">store</span> <span class="pre">n</span></tt>, <tt class="docutils literal"><span class="pre">add</span></tt>, <tt class="docutils literal"><span class="pre">sub</span></tt>, <tt class="docutils literal"><span class="pre">mul</span></tt>, <tt class="docutils literal"><span class="pre">div</span></tt> where <tt class="docutils literal"><span class="pre">store</span> <span class="pre">n</span></tt> will push on the stack the value of n and the other statements pop the two elements on the top and push the result on the top.</p>
+<p>Write a <tt class="docutils literal"><span class="pre">calculator</span></tt> class with the methods:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">__init__</span></tt> that takes a string representing the expression in polish notion</li>
+<li><tt class="docutils literal"><span class="pre">eval</span></tt> with no args that mathematical evaluates the expression used in the constructor and returns the result</li>
+<li><tt class="docutils literal"><span class="pre">code</span></tt> with no args that generates the assembler corresponding to the expression and returns it as a string with a statement per row.</li>
+</ul>
+<p>Of course the use of <tt class="docutils literal"><span class="pre">eval</span></tt> is forbidden and all the passed expressions are correct so no checks on inputs are necessary. The following is an example of usage</p>
+<pre class="atjava">
+
+   <b>from</b> calculator <b>import</b> *
+   calc = calculator('+2*-53/63')
+   print(calc.eval())
+   print(calc.code(),end='')
+
+</pre><p>Note that, closures, recursion and dictionaries can help a lot.</p>
+<div class="midline">Exercise 2: Multi-Triggered Methods.</div><!-- Exercise 2: Multi-Triggered Methods. -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<p>Sometimes is necessary to delay the execution of a method until a condition is verified, e.g., in cryptography when two key are necessary to decrypt a text we have to wait that the <tt class="docutils literal"><span class="pre">decrypt</span></tt> method is called with both keys.</p>
+<p>A similar behavior can be achieved by <strong>really</strong> calling the method only after a given number of calls on a rearrangement of the <strong>whole</strong> set of passed arguments.</p>
+<p>Implements such a behavior through a <strong>parametric</strong> decorator <tt class="docutils literal"><span class="pre">multi_triggered</span></tt>. Such a decorator should have a couple of parameters: the first expresses how many times the method should be call before being really activated, the second is a function which applies on the values used in each call for each parameter. Of course we are speaking about decorators applicable on method not class definitions.</p>
+<p>The following is an example of use:</p>
+<pre class="atjava">
+
+  <b>class</b> ToBeMultiTriggered:
+    <b>def</b> m1(self): print("### m1 has been called!")
+    <b class="atjava">@multi_triggered</b>(2, <b>lambda</b> x,y: x*y)
+    <b>def</b> m2(self, i): print("### m2({0}) has been called!".format(i))
+    <b class="atjava">@multi_triggered</b>(3, <b>lambda</b> x,y: x+y)
+    <b>def</b> m3(self, x, y): print("### m3({0},{1}) has been called!".format(x,y))
+
+  <b>if</b> __name__ == "__main__":
+    to_be = ToBeMultiTriggered()
+    to_be.m1()
+    to_be.m2(5)
+    to_be.m3('a',3)
+    to_be.m2(7)
+    to_be.m3('b', 5)
+    to_be.m2(3)
+    to_be.m3('c', 7)
+
+</pre><p>whose execution gives:</p>
+<pre class="atjava">
+
+   [11:59]cazzola@ulik:~>python3 multi-triggered.py
+   ### m1 has been called!
+   ### m2(35) has been called!
+   ### m3(abc,15) has been called!
+
+</pre><div class="midline">Exercise 3: Gruenberger's Prime Path.</div><!-- Exercise 3: Gruenberger's Prime Path. -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<p>Among the prime numbers, 2 and 3 are exceptions to the rule that all primes
+are of one of two forms: <strong>6k+1</strong> or <strong>6k-1</strong>.</p>
+<p>if you take a check sheet and draw a path of odd integers (one each check) starting from 3 that at every prime:</p>
+<ul class="simple">
+<li>turns left for primes of the form <strong>6k+1</strong></li>
+<li>turns right for primes of the form <strong>6k-1</strong></li>
+</ul>
+<p>Eventually the path will cross itself, so that a check will contain two or more odd numbers. This exercise goes under the name of Gruenberger's prime path after the name of its creator.</p>
+<p>Write a program that calculates the path intersections in the path from 3 to 10001 and lists them sorted by the smallest the largest table-wise a row for each list of intersections.</p>
+<p>The exercise must be solved in a functional manner any other solution will be considered wrong.</p>
+<div class="midline">Exercise 4: Test Driven Development of Prime Factors.</div><!-- Exercise 4: Test Driven Development of Prime Factors. -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<p>Prime Factors. There are two kinds of positive numbers: prime numbers and composite numbers. A composite number is the product of a sequence of prime numbers. You can write a simple <strong>generator</strong>, named <tt class="docutils literal"><span class="pre">prime_factors</span></tt> to factor numbers and yield each prime factor of the number; the generators take as an input the number to factor and returns the prime factors from the smallest to the largest. Note that, a simple-looking for -loop shall not work; the prime factor of 128 is 2, repeated 7 times. Note also that 1 is not a factor or better is always a factor so can be excluded by the list.</p>
+<p>The generator <strong>have to</strong> be developed by using the test-driven techniques; a commitment without test cases will be considered completely wrong.</p>
+</div>
+
+  
+   <!-- COPYRIGHT -->
+    <div id="footer">
+        Last Modified: Thu, 25 Feb 2010 15:37:58
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          ADAPT Lab.&nbsp;
+          <img src="../../logo/logo (svg) 02.png" width="15px" height="15px"></img>
+
+    </div>
+    <!-- FINE COPYRIGHT -->
+</div>
+<!-- FINE CONTENUTO PRINCIPALE -->
+
+
+<!-- INIZIO COLONNA -->
+<div id="colonna">
+
+    <div class="boxSidebar">
+       <p align="center">
+         <center>
+            <img class="nospacetop" src="../../imgs/io-camogli.jpg" hspace="0px" align="middle"></img>
+         </center>
+       </p>
+
+    <h2 class="sectiontitle"><a href="index.html#" onclick="return toggleId('personal');">Walter Cazzola</a></h2>
+    <div id="personal" style="display:block">
+            <a class="on" href="../../index.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Home Page</a><br/>
+            <a class="on" href="../../adapt-lab.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ADAPT Lab.</a><br/>
+            <a class="on" href="../../cv.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Curriculum Vitae</a><br/>
+            <a class="off" href="../../topics.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Research Topic</a><br/>
+    </div>
+
+    <h2 class="sectiontitle"><a href="adapt-lab.html#" onclick="return toggleId('teaching');">Didactics</a></h2>
+    <div id="teaching" style="display:none">
+            <a class="on" href="../../pa.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PA 2009-10</a><br/>
+            <a class="on" href="../../tsp.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TSP 2009-10</a><br/>
+            <a class="on" href="../../phd-apt.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PhD: ADT Curricula</a><br/>
+            <hr>
+            <a class="on" href="../../fap08.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FAP 2008-09</a><br/>
+            <a class="on" href="../../tsp08.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TSP 2008-09</a><br/>
+            <hr>
+            <a class="off" href="../../thesis.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Thesis Proposals</a><br/>
+    </div>
+
+    <h2 class="sectiontitle"><a href="adapt-lab.html#" onclick="return toggleId('publications');">Publications</a></h2>
+    <div id="publications" style="display:none">
+            <a class="on" href="../../cazzolawbib-by-year.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sorted by Year</a><br/>
+            <a class="on" href="../../cazzolawbib-by-topic.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sorted by Topic</a><br/>
+            <a class="on" href="../../cazzolawbib-by-kind.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sorted by Kind</a>
+    </div>
+
+    <h2 class="sectiontitle"><a href="adapt-lab.html#" onclick="return toggleId('funded_projects');">Funded Projects</a></h2>
+    <div id="funded_projects" style="display:none">
+            <a class="on" href="http://wwwiti.cs.uni-magdeburg.de/iti_db/forschung/ramses/ramses1.htm" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RAMSES</a><br/>
+            <a class="on" href="http://bart.disi.unige.it/EOS2/" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EOS-DUE</a><br/>
+            <a class="on" href="http://wwwiti.cs.uni-magdeburg.de/iti_db/forschung/ramses/" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RAMSES II</a>
+    </div>
+
+    <h2 class="sectiontitle"><a href="adapt-lab.html#" onclick="return toggleId('research');">Research Projects</a></h2>
+    <div id="research" style="display:none">
+            <a class="on" href="../../atjava.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Java</a><br/>
+            <a class="on" href="../../neverlang.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Neverlang</a><br/>
+            <a class="off" href="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Blueprint</a><br/>
+            <a class="off" href="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AOP->HiddenMetrics</a><br/>
+            <a class="off" href="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mChaRM</a><br/>
+            <a class="off" href="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RAMSE Library</a><br/>
+            <a class="off" href="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reflective Petri Nets</a><br/>
+            <a class="off" href="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Smart Reflection</a><br/>
+            <a class="off" href="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SNA Servants</a><br/>
+            <a class="off" href="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ReverseR</a><br/>
+    </div>
+
+    <h2 class="sectiontitle"><a href="adapt-lab.html#" onclick="return toggleId('events');">Related Events</a></h2>
+    <div id="events" style="display:none">
+            <a class="on" target="_blank" href="http://www-users.cs.york.ac.uk/~manuel/Events/RAM-SE10/">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RAM-SE'10</a><br/>
+            <a class="on" target="_blank" href="http://www-users.cs.york.ac.uk/~manuel/Events/RAM-SE09/">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RAM-SE'09</a><br/>
+            <a class="on" target="_blank" href="http://2009.ecoop.org">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ECOOP'09</a><br/>
+            <a class="on" target="_blank" href="../../RAM-SE08.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RAM-SE'08</a><br/>
+            <a class="on" target="_blank" href="http://www.aspect-modeling.org">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AOM'08</a><br/>
+            <a class="on" target="_blank" href="../../RAM-SE07.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RAM-SE'07</a><br/>
+    </div>
+    <br/><br/><br/><br/><br/><br/>
+<!-- ADDFREESTATS.COM AUTOCODE V4.0 -->
+<center><script type="text/javascript">
+<!--
+var AFS_Account="00210510";
+var AFS_Tracker="auto";
+var AFS_Server="www2";
+var AFS_Page="DetectName";
+var AFS_Url="DetectUrl";
+// -->
+</script>
+<script type="text/javascript" src="http://www2.addfreestats.com/cgi-bin/afstrack.cgi?usr=00210510">
+</script>
+<noscript>
+<a href="http://www.addfreestats.com" >
+<img src="http://www2.addfreestats.com/cgi-bin/connect.cgi?usr=00210510Pauto" border=0 alt="AddFreeStats.com Free Web Stats!">Web Stats</a>
+</noscript>
+<!-- ENDADDFREESTATS.COM AUTOCODE V4.0  -->
+    <br/><a href="http://validator.w3.org/check?uri=referer"><img
+        src="http://www.w3.org/Icons/valid-xhtml10-blue"
+        alt="Valid XHTML 1.0 Transitional" height="31" width="88" /></a>
+</center>
+
+</div>
+<!-- FINE COLONNA -->
+  
+</div>
+
+</body>
+</html>
+

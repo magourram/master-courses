@@ -1,0 +1,52 @@
+Event Table
+    Timestamp |
+    UserID |
+    ItemID
+
+User Table
+    UserID |
+    RegistrationDate |
+    BirthDate |
+    SubscriptionTag
+# (SubscriptionTag = ”Active” | ”Churning Out” | ”Churned Out”)
+
+Video Table
+    ItemID |
+    Genre |
+    LengthSeconds
+
+Series Table
+    ItemID |
+    SeriesID |
+    SeriesName
+
+# What is the nature of each table (log|registry)?
+Event  --> Log
+User   --> Registry
+Video  --> Registry
+User   --> Registry
+
+# Compute the average items watched per day per user
+--> Assuming Timestamp in gg-mm-yyyy form 
+
+EventRDD.map(lambda x: (x.get("UserID"), x.get("Timestamp"), 1))
+        .reduceByKey(lambda a, b: a + b)
+        .map(lambda x: (x[0][0], x[1]))
+        .reduceByKey(lambda a, b: (a + b) / 2)
+        .persist()
+        .first()
+
+# Compute the average watch duration per user (for all of them?)
+
+def format_row(x):
+    # return (UserID, LengthSeconds) 
+
+semiEventRDD = EventRDD.map(lambda x: (x.get("ItemID"), x))
+semiVideoRDD = VideoRDD.map(lambda x: (x.get("ItemID"), x))
+joinRDD = semiVideoRDD.join(semiEventRDD)
+                      .map(lambda x: format_row(x))
+                      .reduceByKey(lambda a, b: a + b)
+
+# Design a monthly job to detect churned out users
+
+

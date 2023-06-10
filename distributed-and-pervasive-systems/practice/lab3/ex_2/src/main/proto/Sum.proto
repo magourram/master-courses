@@ -1,0 +1,22 @@
+syntax = "proto3";
+package sum;
+
+message Numbers {
+    int32 v1 = 1;
+    int32 v2 = 2;
+}
+
+/* message NumberTimes { */
+/*     int32 v1 = 1; */
+/*     int32 t = 2; */
+/* } */
+
+message Res {
+    int32 res = 1;
+}
+
+service SumService {
+    rpc simpleSum(Numbers) returns (Res);
+    /* rpc simpleSum(NumberTimes) return (stream Sum); */
+    /* rpc simpleSum(Numbers) return (Sum); */
+}

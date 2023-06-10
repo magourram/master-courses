@@ -1,0 +1,145 @@
+1)
+definizione S.D., goals, trasparenza, apertura, scalabilità-problemi, scalabilità-tecniche, false assunzioni degli sviluppatori, tipi S.D.
+pervasive computing
+S.D. pervasivi
+cluster, simmetrico e asimmetrico
+google borg
+grid computing, nodi
+cloud, cloud service models, cloud deployment models, soluzioni, infrastruttura
+edge (fog) computing
+edge vs fog
+distributed information systems
+transaction processing systems
+
+2)
+S.D. architettura, tipi di pattern, tipi di ruoli
+arch.: layering, RMI, event-based, shared data
+architetture centralizzate: client-server, multi-tier, caching, distribuzione verticale o orizzontale
+architetture decentralizzate: 
+P2P: problemi, generazioni nel tempo, scopo
+overlay networks, routing overlay
+overlay strutturato: DHT, CHORD, CAN, limitazioni
+overlay non strutturato: peer sampling, super-peers
+architetture ibride: edge-server, sistema distribuito collaborativo
+
+3)
+protocolli middleware
+tipi comunicazione
+persistenza e sincronia nella comunicazione
+message oriented: Berkeley sockets, queuing, message brokers
+RPC
+ROI
+streams
+multicast
+
+4)
+sincronizzazione clock
+clock fisico
+UTC
+GNSS
+GPS
+Cristian algo & NTP
+Berkeley algo
+clock logico
+Lamport algo
+ordinamento totale: def, multicasting
+mutex
+problemi algo centralizzati
+algo distribuiti
+problemi algo distribuiti
+RING distribuito
+algo elezione: bullo, ring
+
+5)
+tolleranza ai guasti
+teorema CAP
+mascheramento dei guasti tramite ridondanza
+resilenza processi
+consenso nei sistemi difettosi
+accordo bizantino
+impossibilità d'accordo in sistemi asincroni
+6)
+blockchain: definizione, DLT, problemi, consenso, hashing, algo PoW, sostenibilità, DL senza permessi
+frmawork per S.D.: JMS, protocolli di messagistica
+S.D. basati sugli oggetti, CORBA
+Web Services: architettura, protocolli, SOAP + WSDL + UDDI, REST
+piattaforme cloud
+microservices
+containers: def, container vs V.M.
+Google File System
+
+7)
+organizzare informazioni
+storage
+Protocol buffers
+G.F.S. + Colossus
+Bigtable + tablets
+Spanner
+F1
+MapReduce
+FlumeJava
+MillWheel
+
+8)
+pervasive computing
+distributed pervasive computing
+mobile computing
+smart
+sensori e attuatori
+reti di sensori
+utilizzi del pervasive computing
+
+9)
+
+sensori e device
+trasduttore
+sensore
+attuatori
+componenti dei device
+base stations/hubs/controllers
+biosensori + biosegnali
+BLE beacon
+discovery and pairing
+acquisizione dati
+sliding windows
+in-network query processing
+duty cicling
+approccio basato sui modelli
+data cleaning
+acquisizione dati: pull + push
+compressione
+data stream processing: AWS, IoT, Flink
+weareable health monitoring systems
+environmental monitoring
+
+10)
+context awareness: def. classificazione, contesto temporale
+adattatività: def., tipi
+context data: ottenere, inferire
+tipi di inferenza
+riconoscimento attività
+rappresentazione del contesto
+modello flat
+CML
+modelli ontologici
+modelli ibridi
+incertezza: def., come gestirla, supporto
+
+11)
+privacy: def.
+principi della sicurezza
+principi della privacy
+intervenibilità
+GDPR
+minaccia alla privacy nei servizi onlinne
+dati sensitivi e avversari
+impatto pervasivo
+unlinkability
+k-anonymity: limiti
+anonimato in LBS
+offuscazione nei sistemi pervasivi: problemi
+MUR
+cloaking
+fake locations
+privacy differenziale
+indistinguibilità geografica

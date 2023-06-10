@@ -1,0 +1,47 @@
+NVim command
+
+==== start line - end line ===
+$ - 0
+
+==== Replace ====
+LINE :s/<search>/<replace>
+LINE :%s/<search>/<replace>
+
+==== Comments ===
+Edit mode and press ++
+
+==== Switch Between Current Tab =====
+Ctrl-l
+Ctrl-h
+
+==== Switch Between Current Bash&vim =====
+Ctrl-Shift-(->)
+Ctrl-Shift-(<-)
+
+===== Tab =====
+:tabnew
+Navigate tab :tabn
+Navigate tab :tabp
+
+===== Copy-Cut-Paste =====
+Copy Line: Shift-Y
+Cut Line: Shift-D
+Past Line: Shift-P
+
+Copy Part: Select part and press y
+Cut Part: Select part and press d
+Paste Part: Select part and press p
+
+Outside: "+y
+
+===== MyPlug =====
+NERDTreeToggle: Ctrl-N
+FileSystem: Ctrl-P 
+
+===== Install =====
+* PlugInstall
+* CocInstall coc-python
+
+:last
+
+:! to write in bash

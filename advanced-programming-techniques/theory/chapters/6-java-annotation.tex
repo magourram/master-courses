@@ -1,0 +1,206 @@
+\section{Java Annotations}
+
+\subsection{Java Annotations}
+
+\subsubsection{Meta-Data: What, Why and How}
+
+\textbf{Annotations}, also called \textbf{meta-data}, are:
+
+Data about the program execution can be introspected as well:
+\begin{itemize}
+	\item structured data that describe, explain, locate or make easier to retrieve, use or manage an information resource
+\end{itemize}
+
+Annotations are information about information that are interpreted at some point by code or data analysis tools.
+
+Annotations can be used to:
+\begin{itemize}
+	\item document the code
+	\item extract some specific data from the program (e.g., lint, metrics, and so on);
+	\item automatically generate configuration files
+	\item ...
+\end{itemize}
+
+\subsubsection{Meta-Data: A New Concept?}
+
+Do annotations facility introduce a new concept in Java?
+
+No, many applications require or produce files associated to a
+specific class,
+
+\begin{itemize}
+	\item JAX-RPC, XML-RPC, SOAP, . . . ;
+	\item EJB, JavaBean “BeanInfo” class
+	\item ...
+\end{itemize}
+
+Creating and maintaining these associated files is painful.
+
+Moreover many API need the use of special “placemarkers” 
+
+Remote, Serializable, Cloneable, ... 
+
+This feature adds a customizable mechanism for annotating classes, methods and fields
+
+\subsubsection{Standard Annotations}
+
+Standard annotation types are those provided "out-of-the-box"
+
+\begin{itemize}
+	\item \textbf{@Override}, to mark that a method overrides another method in its superclass
+	\item \textbf{@Deprecated}, to indicate that the use of this method is discouraged; and
+	\item \textbf{@SuppressWarning}, to turn off compiler warning for classes, methods, or field and variable initializers.
+\end{itemize}
+
+\begin{lstlisting}[language=Java]
+@Override
+public String toString() {
+	return super.toString() + "[modified by subclass]" ;
+}
+\end{lstlisting}
+
+\subsubsection{Categories of Custom Annotations}
+There are three categories of custom annotations:
+\begin{itemize}
+	\item Marker Annotations, these are annotations without parameters or that uses default values for all parameters.
+\begin{lstlisting}[language=Java]
+@MarkerAnnotation
+\end{lstlisting}	
+	\item Single-Value Annotations, the annotations of this kind have just a single member named value
+\begin{lstlisting}[language=Java]
+@SingleValueAnnotation("some value");
+\end{lstlisting}
+	\item Full Annotations, these annotations exploits the full range of the annotation syntax
+\begin{lstlisting}[language=Java]
+@RevieVws({ // curly braces indicate an array of values
+	@Review(grade=Review.Grade.EXCELLENT, reviewer="DF"),
+	@Review(grade=Review.Grade.UNSATISFACTORY, reviewer="EG",
+		comment="This method needs and @Override annotation.")
+})
+\end{lstlisting}
+\end{itemize}
+
+\subsubsection{Creating Custom Annotation Types}
+
+Annotation types are, basically, Java interfaces
+\begin{itemize}
+	\item They look similar to a normal Java interface definition, but you use @interface which tells the compiler that you are writing an annotation type
+\end{itemize}
+
+Annotations’ members are defined by method signatures
+\begin{itemize}
+	\item these do not take any input parameters
+	\item the return type defines the type of the member
+\end{itemize}
+
+\begin{lstlisting}[language=Java]
+public @interface TODO {
+	String value();
+}
+@TODO("Figure out the amount of interest per month")
+	public void calculateInterest(float amount, float rate) {
+	// need to finish this method later
+}
+\end{lstlisting}
+
+Actually
+\begin{itemize}
+	\item when you write the method signature
+	\item the compiler adds a member to the annotation with the same name and type after the method return type
+	\item the method will be the selector for such a member
+\end{itemize}
+
+\subsubsection{Creating Custom Annotation Types (Cont'd)}
+
+Similatly, we can define  annotation types with several members
+
+\begin{lstlisting}[language=Java]
+public @interface GroupTODO {
+	public enum Severity {CRITICAL, IMPORTANT, TRIVIAL, DOCUMENTATION};
+	Severity severity() default Severity.IMPORTANT;
+	String item();
+	String assignedTo();
+}
+@GroupTODO(
+	severity=GroupTODO.Severity.CRITICAL,
+	item="Figure out the amount of interest per month",
+	assignedTo="Walter Cazzola"
+)
+public void calculateInterest(float amount, float rate) {
+	// need to finish this method later
+}
+\end{lstlisting}
+
+By omitting severity the default value would be used.
+
+
+\subsubsection{Meta-Annotations, i.e., Annotations on Annotations}
+
+The \textbf{meta-annotations} are annotations on annotations
+
+There are four kind of predefined meta-annotations:
+
+\begin{itemize}
+	\item @Target, specifies which program elements (types, methods, ...) can have annotations of the defined type
+	\item  @Retention, indicates whether an annotation is tossed out by the compiler or retained in the compiled class file.
+	\item @Documented, indicates that the annotation should be considered as part of the public API of the annotated program element.
+	\item @Inherited, is used on annotation types targeted at classes and indicates that the annotated type is an inherited one
+\end{itemize}
+
+\subsubsection{Reflecting on Annotations}
+
+The easiest way to check for an annotation is by using the isAnnotationPresent() method.
+
+\begin{lstlisting}[language=Java]
+import java.lang.annotation.RetentionPolicy ;
+import java.lang.annotation.Retention ;
+
+@Retention(RetentionPolicy.RUNTIME)
+public @interface TODO {
+	String value();
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language=Java]
+@TODO("Everything is still missing")
+class Test {}
+public class TestIsAnnotated {
+	public static void main(String[] args) {
+		Class c = Test.class;
+		boolean todo = c.isAnnotationPresent(TODO.class);
+		if (todo) System.out.println("The Test class is not completely implemented yet");
+		else System.out.println("The Test class is completely implemented");
+	}
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language=Java]
+[23:01]cazzola@hymir:~/tsp>java TestIsAnnotated
+The Test class is not completely implemented yet
+\end{lstlisting}
+
+\subsubsection{Reflecting on Annotations}
+
+You can get the annotation’s members through its reification
+
+\begin{lstlisting}[language=Java]
+import java.lang.reflect.Method ;
+class Test {
+	@GroupTODO(
+		severity=GroupTODO.Severity.CRITICAL,
+		item="Figure out the amount of interest per month",
+		assignedTo="Walter Cazzola")
+	public void calculateInterest(float amount, float rate) {
+		// need to finish this method later
+	}
+}
+public class GetMembers {
+	public static void main(String[] args) throws NoSuchMethodException {
+	Class c = Test.class;
+	Method element = c.getMethod("calculateInterest", float.class, float.class);
+	GroupTODO groupTodo = element.getAnnotation(GroupTODO.class);
+	String assignedTo = groupTodo.assignedTo();
+	System.out.println("TODO item on Test is assigned to: '"+assignedTo+"'.");
+	}
+}
+\end{lstlisting}

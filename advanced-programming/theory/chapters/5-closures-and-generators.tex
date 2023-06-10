@@ -1,0 +1,231 @@
+\section{Closures and generators}
+
+\subsection{Closures}
+
+\subsubsection{On a real problem}
+
+\textbf{English, from singular to plural}
+\begin{itemize}
+	\item if a word ends in S, X or Z, add ES, e.g., fax becomes faxes;
+	\item if a word ends in a noisy H,add ES,e.g.,coachbecomescoaches;
+	\item if it ends in a silent H, just add S, e.g., cheetah becomes cheetahs
+	\item if a word ends in Y thath sound like I, change the T to IES, e.g., vacancy becomes vacancies;
+	\item if the Y is combined with a vowel to sound like something else,just  add S,e.g.,day becomes days;
+	\item if all else fails, just add S and hope for the best;
+\end{itemize}
+
+\textbf{We will design a Python module that automatically pluralizes English nouns}
+
+\begin{itemize}
+	\item All these characteristics make for more rapidly developed, shorter, and less bug-prone code.
+	\item A lot easier to prove formal properties of functional languages and programs than of imperative languages and programs.
+\end{itemize}
+
+\subsubsection{Regular Expression}
+A \textbf{regular expression} is a pattern to describe strings
+\begin{itemize}
+	\item the functions in the \textbf{re} module enables us to check if a regular expression matches a string and to return the result of the match
+\end{itemize}
+
+Few bytes of syntax:
+\begin{itemize}
+	\item `.` any character but a newline
+	\item `\^` the begin of the string
+	\item `\$` the end of the string
+	\item `*`, `+` 0 (or 1) or more repetitions of the preceding RE
+	\item `?` 0 or 1 repetitions of the preceding REs
+	\item [] a set of characters
+	\item {} matching group
+\end{itemize}
+
+\textbf{RE at work}
+\begin{lstlisting}[language=Python]
+>>> email = `cazzola@dremove_thisi.unimi.it`
+>>> import re
+>>> m = re.search("remove_this", email)
+>>> email[:m.start()]+email[m.end():]
+`cazzola@di.unimi.it`
+\end{lstlisting}
+
+\subsubsection{Do Some Abstraction: A List of Functions}
+
+To abstract we have
+\begin{itemize}
+	\item to limit the number of tests to be done
+	\item to generalize the approach
+\end{itemize}
+
+\begin{lstlisting}[language=Python]
+import re
+
+def match_sxz(noun): return re.search('[sxz]$', noun)
+def apply_sxz(noun): return re.sub('$', 'es', noun)
+def match_h(noun): return re.search('[^aeioudgkprt]h$', noun)
+def apply_h(noun): return re.sub('$', 'es', noun)
+def match_y(noun): return re.search('[^aeiou]y$', noun)
+def apply_y(noun): return re.sub('y$', 'ies', noun)
+def match_default(noun): return True
+def apply_default(noun): return noun + 's'
+
+rules = ((match_sxz, apply_sxz), (match_h, apply_h), (match_y, apply_y), (match_default, apply_default))
+
+def plural(noun):
+	for matches_rule, apply_rule in rules:
+		if matches_rule(noun):
+			return apply_rule(noun)
+\end{lstlisting}
+
+Advantage:
+
+- to add new rules simply means to add a couple of function and a tuple in the rules tuple
+
+\subsubsection{Do Some Abstraction: A List of Patterns}
+To do better, we have
+
+- to avoid to write the single functions (boring \& error-prone task)
+
+\begin{lstlisting}[language=Python]
+import re
+
+def build_match_and_apply_functions(pattern, search, replace):
+	def matches_rule(word):
+		return re.search(pattern, word)
+	apply_rule = lambda word : \
+		re.sub(search, replace, word)
+	return (matches_rule, apply_rule)
+
+patterns = ( \
+	('[sxz]$', '$', 'es'), ('[^aeioudgkprt]h$', '$', 'es'),
+	('(qu|[^aeiou])y$', 'y$', 'ies'), ('$', '$', 's')
+)
+
+rules = [ \
+	build_match_and_apply_functions(pattern, search, replace)
+		for (pattern, search, replace) in patterns ]
+\end{lstlisting}
+
+\textbf{The technique of binding a value within the scope definition to a value in the outside scope is named closures}
+
+\begin{itemize}
+	\item It fixes the value of some variables in the body of the functions it builds:
+	- both matches \_ rule and apply \_ rule take one parameter (word), they act on that plus three other values (pattern, search and replace) which were set when the functions are built
+\end{itemize}
+
+\subsubsection{Do Some Abstraction: A File of Patterns}
+
+\textbf{Separate data from code}
+
+- By moving the patterns in a separate file
+
+\begin{lstlisting}[language=Python]
+[15:59]cazzola@hymir:~/esercizi-pa>cat plural-rules.txt
+[sxz]$           $ es
+[^aeioudgkprt]h$ $ es
+[^aeiou]y$      y$ ies
+$                $ s
+\end{lstlisting}
+
+\textbf{Everything is still the same but}
+
+- how is the rules list filled?
+
+\begin{lstlisting}[language=Python]
+rules = []
+with open('plural-rules.txt', encoding='utf-8') as pattern_file:
+	for line in pattern_file:
+		pattern, search, replace = line.split(None, 3)
+		rules.append(build_match_and_apply_functions(pattern, search, replace))
+\end{lstlisting}
+
+\textbf{Benefits \& Drawbacks}
+
+\begin{itemize}
+	\item no need to change the code in order to add a new rule
+	\item to read a file is slower than to hardwire the data in the code
+\end{itemize}
+
+\subsection{Generators}
+
+\subsubsection{Introduction by Example}
+ A \textbf{generator} is a function that generates a value at a time
+ 
+ - a sort of resumable function or function with a memory
+ 
+\begin{lstlisting}[language=Python]
+def make_counter(x):
+	print('entering make_counter')
+	while True:
+		yield x
+		print('incrementing x'u')
+		x = x + 1
+\end{lstlisting}
+
+Let look at what happens here
+\begin{lstlisting}[language=Python]
+>>> import counter
+>>> counter = counter.make_counter(2)
+>>> next(counter)
+entering make_counter
+2
+>>> next(counter)
+incrementing x
+3
+\end{lstlisting}
+
+\begin{itemize}
+	\item a call to the function initializes the generator
+	\item the next() will “synchronize” with the yield statement
+	- the yield suspends the function execution and returns a value
+	- the next() resumes the computation from the yield and continues until it reaches another yield or the function end
+\end{itemize}
+
+\subsubsection{Finbonacci's generator}
+\begin{lstlisting}[language=Python]
+def gfib(max):
+	a, b = 0, 1
+	while a < max:
+		yield a
+		a, b = b, a + b
+		
+if __name__ == "__main__":
+	for n in gfib(1000):
+		print(n, end=' ')
+	print()
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+[15:43]cazzola@hymir:~/esercizi-pa>python3 gfib.py
+0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987
+
+>>> import gfib
+>>> list(gfib.gfib(1000))
+[0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987]
+\end{lstlisting}
+
+\begin{itemize}
+	\item a generator can be used in a for statement, the next() is automatically called at each iteration
+	\item the list constructor has a similar behavior
+\end{itemize}
+
+\subsubsection{Pluralizes Via Generators}
+
+\begin{lstlisting}[language=Python]
+def rules(rules_filename):
+	with open(rules_filename, encoding='utf-8') as pattern_file:
+		for line in pattern_file:
+			pattern, search, replace = line.split(None, 3)
+			yield build_match_and_apply_functions(pattern, search, replace)
+def plural(noun, rules_filename='plural-rules.txt'):
+	for matches_rule, apply_rule in rules(rules_filename):
+			if matches_rule(noun):
+				return apply_rule(noun)
+	raise ValueError('no matching rule for {0}'.format(noun))
+\end{lstlisting}
+
+\textbf{Benefits \& Drawbacks}
+\begin{itemize}
+	\item shorter start-up time (it just reads a row not the whole file)
+	\item performance losses (every call to plural() reopensthe file and reads it from the beginning again)
+\end{itemize}
+
+\textbf{To get the benefits from both approaches you need to define your own iterator}

@@ -1,0 +1,2 @@
+- [CNN](https://cs231n.github.io/convolutional-networks/)
+- [Backpropagation](https://cs231n.github.io/optimization-2/)

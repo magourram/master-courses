@@ -1,0 +1,47 @@
+\documentclass[a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[italian]{babel}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage[ruled,vlined,noend]{algorithm2e}
+
+\mathtoolsset{showonlyrefs}  
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=black,      
+    urlcolor=black,
+}
+
+\newcommand{\pluseq}{\mathrel{{+}{=}}}
+
+\newtheorem{theorem}{Teorema}
+\newtheorem{corollary}{Corollario}
+\newtheorem{lemma}{Lemma}
+\newtheorem{remark}{Osservazione}
+\newtheorem{definition}{Definizione}
+
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+\title{Algorithms And Complexity.tex}
+\author{Federico Bruzzone}
+\makeindex
+\begin{document}
+\maketitle
+\newpage
+% \setlength{\parskip}{0.15em}
+\tableofcontents
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.8em}
+\newpage
+\input{chapters/1-apx_classi_greedy.tex}
+\input{chapters/2-apx_pricing.tex}
+\input{chapters/3-probability.tex}
+\input{chapters/4-teo.tex}
+\input{chapters/5-str.tex}
+
+\end{document}

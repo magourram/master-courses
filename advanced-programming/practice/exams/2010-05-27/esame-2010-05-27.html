@@ -1,0 +1,207 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+        
+<head>
+
+<style type="text/css" media="all">@import "../../adapt-lab.css";</style>
+<link rel="shortcut icon" href="../../logo/logo.ico" type="image/x-icon"/>
+<link rel="icon" href="../../logo/logo.ico" type="image/x-icon"/>
+
+<title>Esame di Programmazione Avanzata del 27-05-2010</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"/> 
+<meta name="keywords" content="['Python', 'Walter Cazzola']"/>
+
+<script type="text/javascript">
+var showMode = 'block';
+	if (document.all) showMode = '';
+
+	function toggleId(id, y_scroll){
+	  if (document.all) {
+		var obj = document.all[id];
+	  } else if (document.getElementById) {
+		 var obj = document.getElementById(id);
+	  } else return false;
+	  if (obj.style.display == 'none') {
+	     obj.style.display = showMode;
+	  	 if (y_scroll) scroll(0,y_scroll);
+	  } else obj.style.display = 'none';
+	  return false;
+	}
+</script>
+
+</head>
+<body style="background-image: url(../../backgrounds/rosetta.jpg); background-repeat: repeat-x;">
+
+<!-- INIZIO CONTAINER -->
+<div id="contentmain">
+      
+   <!-- INIZIO CONTENUTO PRINCIPALE -->
+
+   <div class="document">
+<div class="header"><h1 class="title">Exam of Advance in Programming</h1><div class="subtitle">27 May 2010</div></div><br/><br/><!-- Exam of Advance in Programming -->
+<!-- ============================== -->
+<!-- 27 May 2010 -->
+<!-- - - - - - - - - - - - -->
+<p><strong>Disclaimer.</strong> Note that to have a running solution for an exercise is not enough: you need a well-cooked solution that proves your ability to use what explained during the class. The worth of the first two execises is 8 and they are not enough to pass the exam; the last exercise is longer and more complex than usual and its worth is 16 if you commit only the first 2 exercises or only the last one your exam will not be evaluated.</p>
+<div class="midline">Exercise 1: Truth Table Pretty Printer.</div><!-- Exercise 1: Truth Table Pretty Printer -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<p>Given a boolean expression f with n unknowns write a function <tt class="docutils literal"><span class="pre">pretty(f,</span> <span class="pre">n)</span></tt> that pretty prints the table of truth for the given expression.</p>
+<p><strong>Note</strong>, solutions that use <tt class="docutils literal"><span class="pre">itertools</span></tt> are considered <strong>wrong</strong>, decorators, recursion, generators and iterators are allowed and suggested.</p>
+<p>The following is a possible <tt class="docutils literal"><span class="pre">main</span></tt> with its execution</p>
+<embed src="esame 2010-05-27.p1.pdf" width="100%" height="223.3892188828012081458610440px">
+
+<BR>
+
+<embed src="esame 2010-05-27.p2.pdf" width="100%" height="2338.835695044008969858777545px"><!-- <embed src="esame 2010-05-27.p1.pdf" width="100%" height="210px"> -->
+<!-- <embed src="esame 2010-05-27.p2.pdf" width="100%"> -->
+<div class="midline">Exercise 2: Euler's Accelerator.</div><!-- Exercise 2: Euler's Accelerator. -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<p>As you probably knows several constants and functions can be modeled by a series and their value can be approximate as:</p>
+<center><img src="http://www.codecogs.com/png.latex?\displaystyle\sum_{i=0}^\infty}S_i" /></center><p>that means that the precision of the approximation increases according to the number of terms of the series used in the approximation.</p>
+<p>A couple of these series are:</p>
+<center><img src="http://www.codecogs.com/png.latex?\displaystyle\pi=4-\frac{4}{3}+\frac{4}{5}-\frac{4}{7}+\cdots" /></center><p>and</p>
+<center><img src="http://www.codecogs.com/png.latex?\displaystyle e=1+\frac{1}{1!}+\frac{1}{2!}+\frac{1}{3!}+\frac{1}{4!}+\cdots" /></center><p>Unfortunately the convergence of the series could be very slow. Leonhard Euler has discovered that  the terms of a series can be converted through an accelerator operator to the terms of a new series which converges to the original value much faster. Such accelerator is:</p>
+<center><img src="http://www.codecogs.com/png.latex?\displaystyle S_{n+1} - \frac{(S_{n+1}-S_n)^2}{S_{n-1}-2S_n+S_{n+1}}" /></center><p>where S is the series to speed up and the index represents the position of the term in the sequence.</p>
+<p>Let's write two generator functions (<tt class="docutils literal"><span class="pre">pi_series</span></tt> and <tt class="docutils literal"><span class="pre">e_series</span></tt>) that calculates respectively the value for pi and e and at each call returns a more accurate approximation. Then write another generator function (<tt class="docutils literal"><span class="pre">euler_accelerator(g)</span></tt>) that accelerates a generator object according to the Euler's formula. <strong>Note</strong> that the <tt class="docutils literal"><span class="pre">pi_series</span></tt> and <tt class="docutils literal"><span class="pre">e_series</span></tt> generator functions must be callable also in their non accelerate version.</p>
+<div class="midline">Exercise 3: Testing Algebra.</div><!-- Exercise 3: Testing Algebra. -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<p>A <strong>group</strong> is an algebraic structure consisting of a set <strong>S</strong> together with an operation <strong>·</strong> that combines any two of its elements to form a third element. To qualify as a group, the set <strong>S</strong> and the operation <strong>·</strong> must satisfy a few conditions called group axioms, namely</p>
+<ul class="simple">
+<li><strong>closure</strong></li>
+</ul>
+<center><img src="http://www.codecogs.com/png.latex?\displaystyle\forall x,y\in S, x\cdot y\in S" /></center><ul class="simple">
+<li><strong>associativity</strong></li>
+</ul>
+<center><img src="http://www.codecogs.com/png.latex?\displaystyle\forall x,y,z\in S, (x\cdot y)\cdot z = x\cdot( y\cdot z)" /></center><ul class="simple">
+<li><strong>identity</strong></li>
+</ul>
+<center><img src="http://www.codecogs.com/png.latex?\displaystyle\exists i\in S \mathrm{\ such\ that\ } \forall x\in S, x\cdot i = x" /></center><ul class="simple">
+<li><strong>invertibility</strong>.</li>
+</ul>
+<center><img src="http://www.codecogs.com/png.latex?\displaystyle\forall x\in S, \exists y\in S \mathrm{\ such\ that\ } x\cdot y = i" /></center><p>For example, the set Z (the integers with sign) with the + operator is a group but with the * is not since inverting the operation break the closure property.</p>
+<p>Write  the <tt class="docutils literal"><span class="pre">Group</span></tt> class as a template for the real group algebraic structure. such a class must be general, in the sense that the operations and the sets are not defined a priori. The <tt class="docutils literal"><span class="pre">Group</span></tt> container will be instantiated to realize the concrete group.</p>
+<p>Test driven development will be used to test that the concrete groups respect the group axioms (closure, associativity, identity and invertibility), i.e., that they really are groups.</p>
+<p>Test your implementation with the following examples (<strong>S</strong> is the set, <strong>·</strong> is the operation, and <strong>i</strong> the identity):</p>
+<p><strong>Groups</strong></p>
+<ul class="simple">
+<li><strong>S</strong> = {True, False}, <strong>·</strong> = or, <strong>i</strong> = False</li>
+<li><strong>S</strong> = Z, <strong>·</strong> = +, <strong>i</strong> = 0</li>
+<li><strong>S</strong> = Z4 = {0, 1, 2, 3}, <strong>·</strong> = * where a*b=(a*b)%4, <strong>i</strong> = 1</li>
+<li><strong>S</strong> = {<tt class="docutils literal"><span class="pre">a</span></tt>}*, <strong>·</strong>: {<tt class="docutils literal"><span class="pre">a</span></tt>}*×{<tt class="docutils literal"><span class="pre">a</span></tt>}* --&gt; {<tt class="docutils literal"><span class="pre">a</span></tt>}* where x1·x2 is x1 if #x1 &gt; #x2, x2 otherwise, <strong>i</strong> = the empty string</li>
+</ul>
+<p><strong>Note</strong> infinite sets can be implemented through iterators; property checks on infinite sets should be on a finite subset.</p>
+</div>
+
+  
+   <!-- COPYRIGHT -->
+    <div id="footer">
+        Last Modified: Tue, 06 Jul 2010 14:36:41
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          ADAPT Lab.&nbsp;
+          <img src="../../logo/logo (svg) 02.png" width="15px" height="15px"></img>
+
+    </div>
+    <!-- FINE COPYRIGHT -->
+</div>
+<!-- FINE CONTENUTO PRINCIPALE -->
+
+
+<!-- INIZIO COLONNA -->
+<div id="colonna">
+
+    <div class="boxSidebar">
+       <p align="center">
+         <center>
+            <img class="nospacetop" src="../../imgs/io-camogli.jpg" hspace="0px" align="middle"></img>
+         </center>
+       </p>
+
+    <h2 class="sectiontitle"><a href="index.html#" onclick="return toggleId('personal');">Walter Cazzola</a></h2>
+    <div id="personal" style="display:block">
+            <a class="on" href="../../index.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Home Page</a><br/>
+            <a class="on" href="../../adapt-lab.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ADAPT Lab.</a><br/>
+            <a class="on" href="../../cv.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Curriculum Vitae</a><br/>
+            <a class="off" href="../../topics.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Research Topic</a><br/>
+    </div>
+
+    <h2 class="sectiontitle"><a href="adapt-lab.html#" onclick="return toggleId('teaching');">Didactics</a></h2>
+    <div id="teaching" style="display:none">
+            <a class="on" href="../../pa.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PA 2009-10</a><br/>
+            <a class="on" href="../../tsp.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TSP 2009-10</a><br/>
+            <a class="on" href="../../phd-apt.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PhD: ADT Curricula</a><br/>
+            <hr>
+            <a class="on" href="../../fap08.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FAP 2008-09</a><br/>
+            <a class="on" href="../../tsp08.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TSP 2008-09</a><br/>
+            <hr>
+            <a class="off" href="../../thesis.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Thesis Proposals</a><br/>
+    </div>
+
+    <h2 class="sectiontitle"><a href="adapt-lab.html#" onclick="return toggleId('publications');">Publications</a></h2>
+    <div id="publications" style="display:none">
+            <a class="on" href="../../cazzolawbib-by-year.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sorted by Year</a><br/>
+            <a class="on" href="../../cazzolawbib-by-topic.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sorted by Topic</a><br/>
+            <a class="on" href="../../cazzolawbib-by-kind.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sorted by Kind</a>
+    </div>
+
+    <h2 class="sectiontitle"><a href="adapt-lab.html#" onclick="return toggleId('funded_projects');">Funded Projects</a></h2>
+    <div id="funded_projects" style="display:none">
+            <a class="on" href="http://wwwiti.cs.uni-magdeburg.de/iti_db/forschung/ramses/ramses1.htm" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RAMSES</a><br/>
+            <a class="on" href="http://bart.disi.unige.it/EOS2/" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EOS-DUE</a><br/>
+            <a class="on" href="http://wwwiti.cs.uni-magdeburg.de/iti_db/forschung/ramses/" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RAMSES II</a>
+    </div>
+
+    <h2 class="sectiontitle"><a href="adapt-lab.html#" onclick="return toggleId('research');">Research Projects</a></h2>
+    <div id="research" style="display:none">
+            <a class="on" href="../../atjava.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Java</a><br/>
+            <a class="on" href="../../neverlang.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Neverlang</a><br/>
+            <a class="off" href="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Blueprint</a><br/>
+            <a class="off" href="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AOP->HiddenMetrics</a><br/>
+            <a class="off" href="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mChaRM</a><br/>
+            <a class="off" href="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RAMSE Library</a><br/>
+            <a class="off" href="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reflective Petri Nets</a><br/>
+            <a class="off" href="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Smart Reflection</a><br/>
+            <a class="off" href="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SNA Servants</a><br/>
+            <a class="off" href="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ReverseR</a><br/>
+    </div>
+
+    <h2 class="sectiontitle"><a href="adapt-lab.html#" onclick="return toggleId('events');">Related Events</a></h2>
+    <div id="events" style="display:none">
+            <a class="on" target="_blank" href="http://www-users.cs.york.ac.uk/~manuel/Events/RAM-SE10/">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RAM-SE'10</a><br/>
+            <a class="on" target="_blank" href="http://www-users.cs.york.ac.uk/~manuel/Events/RAM-SE09/">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RAM-SE'09</a><br/>
+            <a class="on" target="_blank" href="http://2009.ecoop.org">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ECOOP'09</a><br/>
+            <a class="on" target="_blank" href="../../RAM-SE08.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RAM-SE'08</a><br/>
+            <a class="on" target="_blank" href="http://www.aspect-modeling.org">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AOM'08</a><br/>
+            <a class="on" target="_blank" href="../../RAM-SE07.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RAM-SE'07</a><br/>
+    </div>
+    <br/><br/><br/><br/><br/><br/>
+<!-- ADDFREESTATS.COM AUTOCODE V4.0 -->
+<center><script type="text/javascript">
+<!--
+var AFS_Account="00210510";
+var AFS_Tracker="auto";
+var AFS_Server="www2";
+var AFS_Page="DetectName";
+var AFS_Url="DetectUrl";
+// -->
+</script>
+<script type="text/javascript" src="http://www2.addfreestats.com/cgi-bin/afstrack.cgi?usr=00210510">
+</script>
+<noscript>
+<a href="http://www.addfreestats.com" >
+<img src="http://www2.addfreestats.com/cgi-bin/connect.cgi?usr=00210510Pauto" border=0 alt="AddFreeStats.com Free Web Stats!">Web Stats</a>
+</noscript>
+<!-- ENDADDFREESTATS.COM AUTOCODE V4.0  -->
+    <br/><a href="http://validator.w3.org/check?uri=referer"><img
+        src="http://www.w3.org/Icons/valid-xhtml10-blue"
+        alt="Valid XHTML 1.0 Transitional" height="31" width="88" /></a>
+</center>
+
+</div>
+<!-- FINE COLONNA -->
+  
+</div>
+
+</body>
+</html>
+

@@ -1,0 +1,24 @@
+package it.ewlab.student;
+
+message Student {
+
+    required string name = 1;
+    required string surname = 2;
+    required string yearOfBirth = 3;
+    
+
+    /* enum ResearcherType { */
+    /*     PHDSTUDENT = 0; */
+    /*     POSTDOC = 1; */
+    /*     ASSISTANTPROFESSOR = 2; */
+    /* } */
+
+    message Residence {
+        required string address = 1;
+        required int32 number = 2;
+    }
+    
+    repeated Residence placeOfResidence = 4;
+    /* repeated Paper paper = 3; */
+    /* optional ResearcherType type = 4; */
+}

@@ -1,0 +1,41 @@
+plugins {
+    id 'java'
+    id "application"
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+// application {
+//     mainClass = 'ex2.MultiServer'
+// }
+
+task runMS(type: JavaExec) {
+    group = "Execution"
+    description = ""
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'ex2.MultiServer'
+    args '6789'
+}
+
+task runC(type: JavaExec) {
+    group = "Execution"
+    description = ""
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'ex2.Client'
+    args('localhost', '6789') // main args
+    standardInput = System.in // enable standardInput
+}

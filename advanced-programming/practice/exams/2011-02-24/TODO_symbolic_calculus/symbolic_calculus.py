@@ -1,0 +1,2 @@
+def derivative(s):
+    pass 

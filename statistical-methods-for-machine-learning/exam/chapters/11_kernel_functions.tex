@@ -1,0 +1,42 @@
+\newpage
+\section{Kernel Functions}
+
+\begin{itemize}
+    
+    \item Write the formula for the polynomial kernel of degree $n$.\\ 
+
+        The polynomial kernel $K_n(\boldsymbol{x}, \boldsymbol{x}')$ for all $n \in \mathbb{N}$ using Newton's binomial theorem, we can explicitly compute the map $\boldsymbol{\phi}_n$ such that $K_n(\boldsymbol{x}, \boldsymbol{x}') = \boldsymbol{\phi}_n(\boldsymbol{x})^\top \boldsymbol{\phi}_n(\boldsymbol{x}')$,
+        \begin{align*}
+            K_n(\boldsymbol{x}, \boldsymbol{x}') &= (\boldsymbol{x}^\top \boldsymbol{x}' + 1)^n \\
+                                                 &= \sum_{k=0}^n \binom{n}{k} (\boldsymbol{x}^\top \boldsymbol{x}')^k && \text{Newton's binomial theorem} \\
+        \end{align*}
+
+    \item Write the formula for the Gaussian kernel with parameter $\gamma$.\\
+
+        The Gaussian kernel $K_\gamma(\boldsymbol{x}, \boldsymbol{x}')$ for all $\gamma > 0$,
+        \begin{align*}
+            K_\gamma(\boldsymbol{x}, \boldsymbol{x}') &= \exp(-\frac{1}{2\gamma} \|\boldsymbol{x} - \boldsymbol{x}'\|^2) \quad \gamma > 0 \\
+        \end{align*}
+
+
+    \item Write the pseudo-code for the kernel Perceptron algorithm.\\
+
+
+        \begin{algorithm}[H]
+            \SetAlgoLined
+            \DontPrintSemicolon
+            \caption{Kernel Perceptron}
+            $S \leftarrow \emptyset$ \\
+            \For{$t = 1, 2, \dots$}{
+                Get next example $(\boldsymbol{x}_t, y_t)$ \\
+                Compute $\hat{y_t} = \text{sgn}\left(\sum_{s \in S}\ y_s K(\boldsymbol{x}_s, y_t) \right)$ \\
+                \If{$\hat{y_t} \neq y_t$}{
+                    $S \leftarrow S \cup \{t\}$
+                }
+            }
+        \end{algorithm}
+
+\item Write the mathematical definition of the linear space $\mathcal{H}_K$ of functions induced by a kernel $K$.
+
+
+\end{itemize}
