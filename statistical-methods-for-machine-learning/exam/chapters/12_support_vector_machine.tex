@@ -1,0 +1,57 @@
+\newpage
+\section{Support Vector Machine}
+
+\begin{itemize}
+    
+    \item Write the convex optimization problem with linear constraints that defines the SVM hyperplane in the linearly separable case.\\
+        
+        Given a linearly separable training set $S = \{(\boldsymbol{x}_1, y_1), \dots, (\boldsymbol{x}_n, y_n)\} \in \mathbb{R}^d \times \{-1, 1\}$, SVM outputs the linear classifier corresponding to the unique solution $\boldsymbol{w}^*$ of the following convex optimization problem with linear constraints:
+            \begin{align*} 
+                & \underset{\boldsymbol{w} \in \mathbb{R}^d}{\min} \ \frac{1}{2} \Vert \boldsymbol{w} \Vert^2 \\
+                & \text{s.t.} \ y_t \boldsymbol{w}^\top \boldsymbol{x}_t \geq 1 \ \text{for} \ t = 1, \dots, m 
+            \end{align*}
+
+            Geometrically, $\boldsymbol{w}^*$ corresponds to the \textbf{maximum margin separating hyperplane}. For every linearly separable set $S = \{(\boldsymbol{x}_1, y_1), \dots, (\boldsymbol{x}_n, y_n)\} \in \mathbb{R}^d \times \{-1, 1\}$, the maximum margin is defined as 
+            $$
+            \gamma^* = \underset{\boldsymbol{u} : \Vert \boldsymbol{u} \Vert = 1}{\max} \underset{t = 1, \dots, m}{\min} \ y_t \boldsymbol{u}^\top \boldsymbol{x}_t
+            $$ 
+
+            and the vector $\boldsymbol{u}^*$ achieving the maximum maring is the maximum margin separator.
+
+    \item Write the unconstrained optimization problem whose solution defines the SVM hyperplane when the training set is not necessarily linearly separable.\\
+
+        If we consider the case of a non-linearly separable training set, we should analyze how the SVM objective changes. Consider the following formulataion
+        \begin{align*}
+            \underset{(\boldsymbol{w}, \boldsymbol{\xi}) \in \mathbb{R}^d+m}{\min} \quad & \frac{\lambda}{2} \Vert \boldsymbol{w} \Vert^2 + \frac{1}{m} \sum_{t = 1}^m \xi_t \\
+            \text{s.t.} \quad & y_t \boldsymbol{w}^\top \boldsymbol{x}_t \geq 1 - \xi_t & t = 1, \dots, m \\
+            & \xi_t \geq 0 \ \text{for} & t = 1, \dots, m
+        \end{align*}
+
+        The components of $\boldsymbol{\xi} = (\xi_1, \dots, \xi_m)$ are called \textbf{slack variables} and measure how each margin constraint is violated by a potential solution $\boldsymbol{w}$. Finally, a regularization parameter $\lambda > 0$ is introduced to balance the two terms.\\
+
+        We now consider the constraints involving the slack variables $\xi_t$. In oreder to minimize each $\xi_t$ we can set
+        
+        \begin{equation}
+            \xi_t =
+            \begin{cases}
+                1 - y_t \boldsymbol{w}^\top \boldsymbol{x}_t & \text{if} \ y_t \boldsymbol{w}^\top \boldsymbol{x}_t < 1 \\                
+                0 & \text{otherwise}
+            \end{cases}
+        \end{equation}
+        
+        Now, fix $\boldsymbol{w} \in \mathbb{R}^d$, we can see $\xi_t = \left[1 - y_t \boldsymbol{w}^\top \boldsymbol{x}_t \right]_+$ which is the hinge loss  $h_{t}(\boldsymbol{w})$.\\
+
+        The SVM problem can be rewritten as $$\underset{\boldsymbol{w} \in \mathbb{R}^d}{\min} \ \frac{\lambda}{2} \Vert \boldsymbol{w} \Vert^2 + \frac{1}{m} \sum_{t = 1}^m h_{t}(\boldsymbol{w})$$.\\
+
+
+
+    \item Write the bound on the expected value of the SVM objective function achieved by Pegasos.
+Provide also a bound on the expected squared norm of the loss gradient.\\
+
+    \item Write the definition of $\epsilon$-stability for a learning algorithm\\
+
+    \item Write the value of $\epsilon$ for which SVM is known to be stable. The value depends on the radius $X$ of the ball where the training datapoints live, the training set size $m$, and the regularization coefficient $\gamma$.\\
+
+    \item Write the mathematical conditions on the regularization coefficient $\gamma$ ensuring consistency for the SVM algorithm wih Gaussian kernel.\\
+
+\end{itemize}
