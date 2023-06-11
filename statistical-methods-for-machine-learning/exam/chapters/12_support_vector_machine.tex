@@ -44,14 +44,27 @@
         The SVM problem can be rewritten as $$\underset{\boldsymbol{w} \in \mathbb{R}^d}{\min} \ \frac{\lambda}{2} \Vert \boldsymbol{w} \Vert^2 + \frac{1}{m} \sum_{t = 1}^m h_{t}(\boldsymbol{w})$$.\\
 
 
-
+    \newpage
     \item Write the bound on the expected value of the SVM objective function achieved by Pegasos.
 Provide also a bound on the expected squared norm of the loss gradient.\\
+        
+        $$
+        \mathbb{E}\left[F(\bar{\boldsymbol{w}})\right] \leq F(\boldsymbol{w}^*) + \frac{\mathbb{E}\left[G^2\right]}{2 \lambda T} (\ln T + 1)
+        $$
+            
+        where:
+        \begin{itemize}
+            \item $F(\boldsymbol{w}) = \frac{\lambda}{2} \Vert \boldsymbol{w} \Vert^2 + \frac{1}{m} \sum_{t = 1}^m h_{t}(\boldsymbol{w})$ is the SVM objective function, where $h_{t}(\boldsymbol{w}) = \left[1 - y_t \boldsymbol{w}^\top \boldsymbol{x}_t \right]_+$ is the hinge loss.
+            \item $\bar{\boldsymbol{w}} = \frac{1}{T} \sum_{t = 1}^T \boldsymbol{w}_t$ is the average of the iterates
+            \item $\boldsymbol{w}^* = \underset{\boldsymbol{w} \in \mathbb{R}^d}{\text{argmin}} (F(\boldsymbol{w}))$ is the optimal solution of the SVM problem
+            \item $G = \underset{t=1,\dots,T}{\max} \Vert \nabla \ell_{s_t}(\boldsymbol{w}_t) \Vert$ is the norm of the loss gradient            
+            \item $\lambda > 0$ is the regularization parameter
+            \item $T$ is the number of iterations
+        \end{itemize}
+        
+        We can bound $G$ bounding the norm of the loss gradient in the following way: $\Vert \nabla \ell_t(\boldsymbol{w}_t) \Vert \leq X + \lambda \Vert \boldsymbol{w}_t \Vert \leq 2X$ where $X = \max_{t = 1, \dots, m} \Vert \boldsymbol{x}_t \Vert$ is the maximum norm of the training examples.
 
-    \item Write the definition of $\epsilon$-stability for a learning algorithm\\
-
-    \item Write the value of $\epsilon$ for which SVM is known to be stable. The value depends on the radius $X$ of the ball where the training datapoints live, the training set size $m$, and the regularization coefficient $\gamma$.\\
-
-    \item Write the mathematical conditions on the regularization coefficient $\gamma$ ensuring consistency for the SVM algorithm wih Gaussian kernel.\\
-
+        $$
+    \mathbb{E}\left[F(\bar{\boldsymbol{w}})\right] \leq F(\boldsymbol{w}^*) + \frac{2 X^2}{\lambda T} (\ln T + 1)
+        $$
 \end{itemize}
