@@ -11,7 +11,7 @@
     \item \textbf{Main loop}: Pick a leaf $\ell$ and replace it with an internal node $v$ creating two children $\ell^{'}$ and $\ell^{''}$. Pick an attribute $i$ and a test $f : \mathcal{X}_i \rightarrow \{1,2\}$. Associate the test $f$ with $v$ and partition $S_{\ell}$ in the two subsets\\
         $$S_{\ell^{'}} = \{(\boldsymbol{x}_t, y_t) \in S_{\ell} : f(x_{t,i}) = 1\}\ \textmd{and}\ S_{\ell^{''}} = \{(\boldsymbol{x}_t, y_t)\in S_{\ell} : f(x_{t,i}) = 2\}$$ 
     \end{enumerate}
-    Let the labels associated with $S_{\ell^{'}}$ and$S_{\ell^{''}}$ be the most frequent labels in $S_{\ell^{'}}$ and $S_{\ell^{''}}$ respectively.\\ 
+    Let the labels associated with $S_{\ell^{'}}$ and $S_{\ell^{''}}$ be the most frequent labels in $S_{\ell^{'}}$ and $S_{\ell^{''}}$ respectively.\\ 
 
     \item What is the property of a splitting criterion $\psi$ ensuring that the training error of a tree classifier does not increase after a split? Bonus points if you justify your answer with a proof.\\
 
