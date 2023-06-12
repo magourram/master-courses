@@ -29,7 +29,7 @@
             $S \leftarrow \emptyset$ \\
             \For{$t = 1, 2, \dots$}{
                 Get next example $(\boldsymbol{x}_t, y_t)$ \\
-                Compute $\hat{y_t} = \text{sgn}\left(\sum_{s \in S}\ y_s K(\boldsymbol{x}_s, y_t) \right)$ \\
+                Compute $\hat{y_t} = \text{sgn}\left(\sum_{s \in S}\ y_s K(\boldsymbol{x}_s, \boldsymbol{x}_t) \right)$ \\
                 \If{$\hat{y_t} \neq y_t$}{
                     $S \leftarrow S \cup \{t\}$
                 }

@@ -85,19 +85,19 @@
     
     \item State the Chernoff-Hoeffding bounds.\\
 
-        Let $Z_1, \dots, Z_n$ be indipendent and identically distributed random variables with expectation $\mu$ and such that $0 \leq Z_i \leq 1$ for all $i = 1, \dots, n$. Then, for any $\epsilon > 0$,
+        Let $Z_1, \dots, Z_n$ be indipendent and identically distributed random variables with expectation $\mu$ and such that $0 \leq Z_i \leq 1$ for all $i = 1, \dots, n$. Then, for any $\varepsilon > 0$,
         $$
-        \mathbb{P}\left(\frac{1}{n}\sum_{t=1}^{n} Z_t > \mu + \epsilon\right) \leq e^{-2n\epsilon^{2}}
+        \mathbb{P}\left(\frac{1}{n}\sum_{t=1}^{n} Z_t > \mu + \varepsilon\right) \leq e^{-2n\varepsilon^{2}}
         \quad and \quad
-        \mathbb{P}\left(\frac{1}{n}\sum_{t=1}^{n} Z_t < \mu - \epsilon\right) \leq e^{-2n\epsilon^{2}}
+        \mathbb{P}\left(\frac{1}{n}\sum_{t=1}^{n} Z_t < \mu - \varepsilon\right) \leq e^{-2n\varepsilon^{2}}
         $$
 
         Using the Chernoff-Hoeffding bound with $Z_t = \ell(y_t, h(\boldsymbol{x}_t)) \in [0, 1]$ we can compute a confidence interval for the risk as follows (where the test error is written as $\ell$ instead of $\ell_{S^\prime}$):
         \begin{equation} 
             \begin{split}
-                \mathbb{P}\left(|\ell_{\mathcal{D}}(h) - \ell(h)| > \epsilon\right) & = \mathbb{P}\left(\ell_{\mathcal{D}}(h) - \ell(h) > \epsilon\ \cup\ \ell(h) - \ell_{\mathcal{D}}(h) > \epsilon\right)\\ 
-                                                                                    & = \mathbb{P}\left(\ell_{\mathcal{D}}(h) - \ell(h) > \epsilon\right) + \mathbb{P}\left(\ell(h) - \ell_{\mathcal{D}}(h) > \epsilon\right)\\ 
-                                                                                    & \leq 2e^{-2n\epsilon^{2}}\\
+                \mathbb{P}\left(|\ell_{\mathcal{D}}(h) - \ell(h)| > \varepsilon\right) & = \mathbb{P}\left(\ell_{\mathcal{D}}(h) - \ell(h) > \varepsilon\ \cup\ \ell(h) - \ell_{\mathcal{D}}(h) > \varepsilon\right)\\ 
+                                                                                    & = \mathbb{P}\left(\ell_{\mathcal{D}}(h) - \ell(h) > \varepsilon\right) + \mathbb{P}\left(\ell(h) - \ell_{\mathcal{D}}(h) > \varepsilon\right)\\ 
+                                                                                    & \leq 2e^{-2n\varepsilon^{2}}\\
             \end{split}
         \end{equation}
 
@@ -118,14 +118,18 @@
     \item  Write the upper bound on the estimation error of ERM run on a finite class $\mathcal{H}$ of predictors.\\
         
         We now study the case $|\mathcal{H}| < \infty$, that is when the model space contains a finite number of predictors. 
-        Note that the event $\exists h \in \mathcal{H} : |\ell_{\mathcal{D}}(h) - \ell_{S}(h)| > \epsilon / 2$ is the union over $h \in \mathcal{H}$ of the events $|\ell_{\mathcal{D}}(h) - \ell_{S}(h)| > \epsilon / 2$. 
-        Therefore, by the union bound, we have that its probability is bounded by $|\mathcal{H}|$ times the probability of the event $|\ell_{\mathcal{D}}(h) - \ell_{S}(h)| > \epsilon / 2$ for a single predictor $h \in \mathcal{H}$ is $\leq |\mathcal{H}|2e^{-m\epsilon^2/2}$.
+        Note that the event $\exists h \in \mathcal{H} : |\ell_{\mathcal{D}}(h) - \ell_{S}(h)| > \varepsilon / 2$ is the union over $h \in \mathcal{H}$ of the events $|\ell_{\mathcal{D}}(h) - \ell_{S}(h)| > \varepsilon / 2$. 
+        Therefore, by the union bound, we have that its probability is bounded by $|\mathcal{H}|$ times the probability of the event $|\ell_{\mathcal{D}}(h) - \ell_{S}(h)| > \varepsilon / 2$ for a single predictor $h \in \mathcal{H}$ is $\leq |\mathcal{H}|2e^{-m\varepsilon^2/2}$.
 
         In conclusion, we have that
         $$
-            \mathbb{P}(\ell_{D}(h_S) - \ell_{D}(h^*) > \epsilon) \leq 2|\mathcal{H}|e^{-m\epsilon^2/2}
+            \mathbb{P}(\ell_{D}(h_S) - \ell_{D}(h^*) > \varepsilon) \leq 2|\mathcal{H}|e^{-m\varepsilon^2/2}
         $$
-
+    
+        Setting the right-hand side of equal to $\delta$ and solving for $\varepsilon$ we obtain that:
+        $$
+        \ell_{D}(h_S) \leq \ell_{D}(h^*) + \sqrt{\frac{2}{m}\ln\frac{2|\mathcal{H}|}{\delta}}
+        $$
 
 
 \end{itemize}

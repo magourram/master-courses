@@ -21,7 +21,7 @@
     Hence, via Jensen's inequality, we can study how the training error changes when $\ell$ is replaces by two new leaves $\ell^{'}$ and $\ell^{''}$.\\
     
     $$
-    \psi \left( \frac{N_{\ell}^+}{N_{\ell}}\right){N_{\ell}} = \psi \left( \frac{N_{\ell^{'}}^+}{N_{\ell^{'}}}\frac{N_{\ell^{'}}}{N_{\ell}} + \frac{N_{\ell^{''}}^+}{N_{\ell^{''}}}\frac{N_{\ell^{''}}}{N_{\ell}}\right){N_{\ell}} \geq \psi\left( \frac{N_{\ell^{'}}^+}{N_{\ell^{'}}}\right)\frac{N_{\ell^{'}}^+}{N_{\ell}}N_{\ell} + \psi\left( \frac{N_{\ell^{''}}^+}{N_{\ell^{''}}}\right)\frac{N_{\ell^{''}}^+}{N_{\ell}}N_{\ell}
+    \psi \left( \frac{N_{\ell}^+}{N_{\ell}}\right){N_{\ell}} = \psi \left( \frac{N_{\ell^{'}}^+}{N_{\ell^{'}}}\frac{N_{\ell^{'}}}{N_{\ell}} + \frac{N_{\ell^{''}}^+}{N_{\ell^{''}}}\frac{N_{\ell^{''}}}{N_{\ell}}\right){N_{\ell}} \geq \psi\left( \frac{N_{\ell^{'}}^+}{N_{\ell^{'}}}\right)\frac{N_{\ell^{'}}}{N_{\ell}}N_{\ell} + \psi\left( \frac{N_{\ell^{''}}^+}{N_{\ell^{''}}}\right)\frac{N_{\ell^{''}}}{N_{\ell}}N_{\ell}
     $$
 
     meaning that a split never increaseses the training error.\\
