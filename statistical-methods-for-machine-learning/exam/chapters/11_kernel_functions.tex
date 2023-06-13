@@ -68,8 +68,14 @@
     $$.
 
     \item Write the mistake bound for the kernel Perceptron run on an arbitrary data stream for binary classification. Define the main quantities occurring in the bound.\\ 
-        
-       TODO 
+
+        Recall the bound on the number of mistakes provided by the for the Perceptron run on an arbitrary data stream for binary classification:
+        $$
+        M \leq \sum_{t=1}^{T} h_{t}(\boldsymbol{u}) + (\Vert \boldsymbol{u} \Vert X)^2 + \Vert \boldsymbol{u} \Vert X \sqrt{\sum_{t=1}^{T}h_t (\boldsymbol{u})} \quad \text{for all}\ \boldsymbol{u} \in \mathbb{R}^d    
+        $$
+
+        In a generic \textit{reproducing kernel Hilbert space} $\mathcal{H}_K$, the hyperplane $\boldsymbol{u}$ is some $g \in \mathcal{H}_K$ such that $y_t g(\boldsymbol{x}_t) > 1$ for all $t = 1, \dots, m$. $X$ was the maximum norm of the examples, which becomes $\underset{t}{\max} \Vert \phi_K(\boldsymbol{x}_t) \Vert_K = \underset{t}{\max} \ K(\boldsymbol{x}_t, \cdot)$.
+
 
     \item Write the closed-form formula (i.e., not the argmin definition) of the kernel version of the Ridge Regression predictor.\\
         
