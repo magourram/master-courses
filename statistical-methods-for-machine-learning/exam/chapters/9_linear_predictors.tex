@@ -57,6 +57,22 @@
            \KwOut{$\boldsymbol{w}$}
         \end{algorithm}
 
+    \item Write the statement of the Perceptron convergence theorem.
+    
+        \textit{Let $(\boldsymbol{x}_1 , y_1 ), \dots, (\boldsymbol{x}_m , y_m)$ be a linearly separable training set. Then the Perceptron algorithm returns a linear classifier with zero training error in a finite number of updates}
+        $$
+        \left(\underset{\boldsymbol{u} : \gamma(\boldsymbol{y}) \geq 1}{\min} \Vert \boldsymbol{u} \Vert^2 \right) \ \left( \underset{t = 1, \dots, m}{\max} \Vert \boldsymbol{x}_t \Vert^2 \right)
+        $$
+
+        The apparently stonger margin constraint $\gamma (\boldsymbol{u}) \geq 1$ is actually achievable by any separating hyperplane $\boldsymbol{u}$. Indeed, if $\gamma (\boldsymbol{u}) > 0$, $y_t\boldsymbol{u}^\top\boldsymbol{x}_t > \gamma (\boldsymbol{u})$ is equivalent to $y_t\boldsymbol{u}^\top\boldsymbol{x}_t > 1$ for $\boldsymbol{v} = \boldsymbol{u} / \gamma (\boldsymbol{u})$. Hence, $\gamma(\boldsymbol{u}) \geq 1$ can be achived by rescaling $\boldsymbol{u}$.
+         
+
+        After the proof of this theorem and finding the upper and lower bound we can bound the number of updates M:
+
+        $$
+        M \leq \Vert \boldsymbol{u} \Vert \left(\underset{t = 1, \dots, M}{\max} \Vert \boldsymbol{x}_t \Vert \right) \sqrt{M} 
+        $$
+
     \item Write the closed-form formula (i.e., not the argmin definition) for the Ridge Regression predictor. Define the main quantities occurring in the formula.\\
 
         The closed-form formula the Ridge Regression coefficients (predictor) is:
