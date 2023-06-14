@@ -12,15 +12,16 @@
         To avoid overfitting, logistic regression is often used with a regularization term that enforces stability:
         $$\ell_t (\boldsymbol{w}) = \log_2 (1+e^{-y_t \boldsymbol{w}^\top \boldsymbol{x}_t}) + \frac{\lambda}{2} \|\boldsymbol{w}\|^2.$$
 
-  \item Write the definition of consistency for surrogate losses.
+  \item Write the definition of consistency for surrogate losses.\\
 
         A surrogate loss function $\ell$ is consistent if, for all $\boldsymbol{x} \in \mathcal{X}$,
-        $$\sign (g^*) = f^* \text{ for } g^*(\boldsymbol{x}) = \argmin_{\hat{y} \in \mathbb{R}} \mathbb{E}[\ell(Y,\hat{y})|\boldsymbol{X} = \boldsymbol{x}].$$
+        $$\text{sgn} (g^*) = f^* \text{ for } g^*(\boldsymbol{x}) = \text{argmin}_{\hat{y} \in \mathbb{R}} \mathbb{E}[\ell(Y,\hat{y})|\boldsymbol{X} = \boldsymbol{x}].$$
 
-  \item Write a sufficient condition for consistency of a surrogate loss.
+  \item Write a sufficient condition for consistency of a surrogate loss.\\
+
         If a surrogate loss $\ell:\{-1,1\} \times \mathbb{R} \to \mathbb{R}$ is such that for all $y \in \{-1,1\}$ the derivative $\ell'(y,0)$ exists and satisfies $\ell'(y,0) < 0$, then $\ell$ is consistent.
 
-  \item Write the formula for Bayes optimal predictor and Bayes risk for the logistic loss.
+  \item Write the formula for Bayes optimal predictor and Bayes risk for the logistic loss.\\
 
         The logistic loss is defined as $\ell(y, \hat{y}) = \log_2 (1 + e^{-y\hat{y}})$. The Bayes optimal predictor for the logistic loss, known also as log-odds ratio, is defined as:
         $$g^*(\boldsymbol{x}) = \ln \frac{\eta(\boldsymbol{x})}{1-\eta(\boldsymbol{x})},$$
