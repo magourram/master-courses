@@ -1,0 +1,9 @@
+\newpage
+\section{Neural Networks and Deep Learning}
+
+\begin{itemize}
+
+    \item Consider the class $\mathcal{F}_d$ of all functions of the form $f : \{-1, 1\}^d \rightarrow \{-1, 1\}$. Let $\mathcal{F}_{G,sgn}$ be the class of functions computed by a feedforward neural networks with the $sgn$ activation function and graph $G = (V, E)$. Provide asymptotic upper and lower bounds on $|V|$ such that $F_d \subseteq F_{G,sgn}$.  
+
+        For every $d \in \mathbb{N}$, let $s(d)$ be the smallest integer such that there exists a graph $G = (V, E)$ with $|V| = s(d)$ for which $\mathcal{F}_{G, sgn}$ contains all functions of the form $f : \{-1, 1\}^d \rightarrow \{-1, 1\}$. Then $s(d) = \Omega(2^{d/3})$ and $s(d) = O(2^d)$. A similar result holds when $sgn$ is repalced by the sigmoid function $\sigma(x) = \frac{1 - e^{-x}}{1 + e^{-x}} \in [-1,1]$.
+\end{itemize}
