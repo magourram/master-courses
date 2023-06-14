@@ -20,9 +20,9 @@
 
     \item Write the unconstrained optimization problem whose solution defines the SVM hyperplane when the training set is not necessarily linearly separable.\\
 
-        If we consider the case of a non-linearly separable training set, we should analyze how the SVM objective changes. Consider the following formulataion
+        If we consider the case of a non-linearly separable training set, we should analyze how the SVM objective changes. Consider the following formulation
         \begin{align*}
-            \underset{(\boldsymbol{w}, \boldsymbol{\xi}) \in \mathbb{R}^d+m}{\min} \quad & \frac{\lambda}{2} \Vert \boldsymbol{w} \Vert^2 + \frac{1}{m} \sum_{t = 1}^m \xi_t \\
+            \underset{(\boldsymbol{w}, \boldsymbol{\xi}) \in \mathbb{R}^{d+m}}{\min} \quad & \frac{\lambda}{2} \Vert \boldsymbol{w} \Vert^2 + \frac{1}{m} \sum_{t = 1}^m \xi_t \\
             \text{s.t.} \quad & y_t \boldsymbol{w}^\top \boldsymbol{x}_t \geq 1 - \xi_t & t = 1, \dots, m \\
             & \xi_t \geq 0 \ \text{for} & t = 1, \dots, m
         \end{align*}
