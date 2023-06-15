@@ -6,7 +6,7 @@
     \item Can the ERM over linear classifiers be computed efficiently? Can it be approximated efficiently? Motivate your answers.\\
        
         $$
-        h_{S} = \underset{h \in \mathcal{H}}{\text{argmin}} \frac{1}{m} \sum_{t=1}^{m} \mathbb{I}\{y_t \boldsymbol{w}^{\top}\boldsymbol{x}_t \leq 0\} \quad \text{(1)}
+        h_{S} = \underset{\boldsymbol{w} \in \mathbb{R}^d : \Vert \boldsymbol{w} \Vert = 1}{\text{argmin}} \frac{1}{m} \sum_{t=1}^{m} \mathbb{I}\{y_t \boldsymbol{w}^{\top}\boldsymbol{x}_t \leq 0\} \quad \text{(1)}
         $$
 
         Unfortunately, it is unlikely to find an efficient implementation of ERM for linear classifiers with zero-one loss because is NPO. In fact, the decision problem associated with finding $h_{S}$ is NP-complete even when $x_t \in \{0,1\}^d$ for $t = 1, \dots, m$.\\
@@ -61,7 +61,7 @@
     
         \textit{Let $(\boldsymbol{x}_1 , y_1 ), \dots, (\boldsymbol{x}_m , y_m)$ be a linearly separable training set. Then the Perceptron algorithm returns a linear classifier with zero training error in a finite number of updates}
         $$
-        \left(\underset{\boldsymbol{u} : \gamma(\boldsymbol{y}) \geq 1}{\min} \Vert \boldsymbol{u} \Vert^2 \right) \ \left( \underset{t = 1, \dots, m}{\max} \Vert \boldsymbol{x}_t \Vert^2 \right)
+        \left(\underset{\boldsymbol{u} : \gamma(\boldsymbol{u}) \geq 1}{\min} \Vert \boldsymbol{u} \Vert^2 \right) \ \left( \underset{t = 1, \dots, m}{\max} \Vert \boldsymbol{x}_t \Vert^2 \right)
         $$
 
         The apparently stonger margin constraint $\gamma (\boldsymbol{u}) \geq 1$ is actually achievable by any separating hyperplane $\boldsymbol{u}$. Indeed, if $\gamma (\boldsymbol{u}) > 0$, $y_t\boldsymbol{u}^\top\boldsymbol{x}_t > \gamma (\boldsymbol{u})$ is equivalent to $y_t\boldsymbol{u}^\top\boldsymbol{x}_t > 1$ for $\boldsymbol{v} = \boldsymbol{u} / \gamma (\boldsymbol{u})$. Hence, $\gamma(\boldsymbol{u}) \geq 1$ can be achived by rescaling $\boldsymbol{u}$.

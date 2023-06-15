@@ -5,6 +5,7 @@
     
     \item Write the definition of $\varepsilon$-stability for a learning algorithm\\
 
+    Let $\ell(h_{S}, \boldsymbol{Z}_t) = \ell(h_{S}(\boldsymbol{X}_t), Y_t)$ where $\boldsymbol{Z}_t = (\boldsymbol{X}_t, Y_t)$.\\
         Assume that $S = S_m$ is a sample of $m$ examples $\boldsymbol{Z}_t = (\boldsymbol{X}_t, Y_t)$ independently drawn from a distribution $\mathcal{D}$ on $\mathcal{X} \times \mathcal{Y}$, and that $A$ is a learning algorithm. We use $S^{(t)}$ to denote $S$ where the $t$-th example $(\boldsymbol{X}_t, Y_t)$ is replaced by $\boldsymbol{Z}_t' = (\boldsymbol{X}_t', Y_t')$, also drawn from $\mathcal{D}$ independently of $S$.
         
         Let $A(S)$ and $A(S^{(t)})$ denote the output of $A$ on $S$ and $S^{(t)}$ respectively, we say that $A$ is $\varepsilon$-stable for a training set of size $m$ if, for each $t = 1, \dots, m$
