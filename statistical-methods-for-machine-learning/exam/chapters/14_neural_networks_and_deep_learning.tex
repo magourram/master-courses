@@ -26,7 +26,7 @@ The main quantities occuring are:
 \begin{itemize}
 \item $\boldsymbol{w}$ represents the parameter vector of the neural network, which includes the weights associated with each edge in the graph $G$. The subscript $(i,j)$ denotes the weight associated with the edge connecting node $i$ to node $j$.
 \item $\eta_t$ is the learning rate at iteration $t$. It determines the step size or the rate at which the parameters are updated. It is typically a small positive constant.
-\item $\ell_{z_t}(\boldsymbol{w})$ represents the loss function $\ell(y_t, \hat{y}_t)$, where $y_t$ is the true label and $\hat{y}_t$ is the predicted label for the input $\boldsymbol{x}_t$ using the current parameters $\boldsymbol{w}$.
+\item $\ell_{\boldsymbol{Z}_t}(\boldsymbol{w})$ represents the loss function $\ell(y_t, \hat{y}_t)$, where $y_t$ is the true label and $\hat{y}_t$ is the predicted label for the input $\boldsymbol{x}_t$ using the current parameters $\boldsymbol{w}$ where $\boldsymbol{Z}_t$ is the random training example. 
 \item $\frac{\partial \ell_{z_t} (\boldsymbol{w})}{\partial w_{i,j}}$ is the partial derivative of the loss function with respect to the weight $w_{i,j}$. It measures the sensitivity of the loss with respect to the corresponding weight in the network.
 \item $E$ represents the set of all edges in the directed acyclic graph $G$. The update is performed for each weight associated with an edge in the graph.
 \end{itemize}
